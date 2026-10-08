@@ -132,6 +132,19 @@
   .modal-overlay{display:none; position:fixed; inset:0; background:rgba(10,11,12,0.65); z-index:100; align-items:center; justify-content:center;}
   .breakdown-popover{display:none; position:fixed; z-index:90; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,0.45); min-width:260px; max-width:360px; max-height:320px; overflow-y:auto; padding:6px;}
   .breakdown-popover.show{display:block;}
+  .quarter-tip{display:none; position:fixed; z-index:95; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,0.45); width:340px; max-height:380px; overflow-y:auto; padding:10px;}
+  .quarter-tip.show{display:block;}
+  .quarter-tip .qt-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+  .quarter-tip .qt-q{font-weight:700; font-size:14px; color:var(--text);}
+  .quarter-tip .qt-total{font-size:12px; color:var(--text-dim);}
+  .quarter-tip .qt-row{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-dim); padding:2px 0;}
+  .quarter-tip .qt-sw{width:10px; height:10px; border-radius:2px; flex:none;}
+  .quarter-tip .qt-n{margin-left:auto; font-weight:600; color:var(--text);}
+  .quarter-tip .qt-sub{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); margin:10px 0 4px; padding-top:8px; border-top:1px solid var(--border-soft);}
+  .quarter-tip .qt-inc{display:block; padding:5px 6px; border-radius:5px; cursor:pointer; text-decoration:none;}
+  .quarter-tip .qt-inc:hover{background:var(--panel2);}
+  .quarter-tip .qt-eosm{font-weight:700; font-size:12px; color:var(--amber);}
+  .quarter-tip .qt-title{font-size:12px; color:var(--text-dim);}
   .breakdown-popover .bp-header{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-faint); padding:6px 10px 4px;}
   .breakdown-popover .bp-item{display:block; padding:8px 10px; border-radius:5px; cursor:pointer; text-decoration:none; color:var(--text);}
   .breakdown-popover .bp-item:hover{background:var(--panel2);}
@@ -734,6 +747,11 @@
       <h2 class="page-title">Trends</h2>
       <p class="page-sub">Patterns across everything logged.</p>
       <div style="margin-bottom:16px;"><button class="btn btn-primary" id="btn-deepdive-ppt">Download Deep Dive PPT</button></div>
+      <div class="chart-wrap"><h3>Incidents per quarter</h3>
+        <div style="font-size:12px; color:var(--text-faint); margin:-4px 0 10px;">Stacked by incident type. Each incident counts once, under its highest category (LSR, then First Aid Case, Property Damage, Security, Near Miss). Hover a quarter for the full list; click an incident to open it. Records without a date (placeholders awaiting reports) are not plotted.</div>
+        <div class="chart-canvas-box" style="height:340px;"><canvas id="chartQuarterly" role="img" aria-label="Stacked column chart of incidents per quarter by incident type"></canvas></div>
+        <div class="quarter-tip" id="quarter-tip"></div>
+      </div>
       <div class="chart-wrap"><h3>Incidents per month</h3><div class="chart-canvas-box"><canvas id="chartMonthly" role="img" aria-label="Line chart of incident count per month"></canvas></div></div>
       <div class="grid grid-2">
         <div class="chart-wrap"><h3>By contractor</h3><div class="chart-canvas-box"><canvas id="chartContractor" role="img" aria-label="Bar chart of incidents by contractor"></canvas></div></div>
@@ -8348,8 +8366,143 @@ function renderOverviewCharts(){
   });
 }
 
+const QUARTER_CATS = [
+  { key:'lsr', label:'LSR Violation', color:'#E5484D', test: i => i.type === 'LSR Violation' || i.classification === 'LSR Violation' },
+  { key:'fac', label:'First Aid Case', color:'#4CAF6D', test: i => i.type === 'First Aid Case' || i.classification === 'First Aid Case' },
+  { key:'pd', label:'Property Damage', color:'#9B7FE8', test: i => i.type === 'Property Damage' || /-PD$/.test(i.eosm||'') },
+  { key:'sec', label:'Security', color:'#4AC9DB', test: i => i.type === 'Security Event' },
+  { key:'nm', label:'Near Miss', color:'#F5A623', test: i => i.type === 'Near Miss' },
+  { key:'other', label:'Other', color:'#8B9199', test: () => true }
+];
+function quarterOf(dateStr){
+  const m = /^(\d{4})-(\d{2})/.exec(dateStr||'');
+  if(!m) return null;
+  return m[1] + '-Q' + (Math.floor((parseInt(m[2],10)-1)/3)+1);
+}
+function buildQuarterData(){
+  const byQ = {};
+  incidents.forEach(rec=>{
+    const q = quarterOf(rec.date);
+    if(!q) return;
+    (byQ[q] = byQ[q] || []).push(rec);
+  });
+  const keys = Object.keys(byQ).sort();
+  if(!keys.length) return { quarters:[], byQ:{}, cat:{} };
+  // Fill gaps and run through the current quarter so empty quarters show as zero.
+  const now = new Date();
+  const curQ = now.getFullYear() + '-Q' + (Math.floor(now.getMonth()/3)+1);
+  const last = keys[keys.length-1] > curQ ? keys[keys.length-1] : curQ;
+  const quarters = [];
+  let [y,qn] = keys[0].split('-Q').map(Number);
+  while((y + '-Q' + qn) <= last){
+    quarters.push(y + '-Q' + qn);
+    qn++; if(qn>4){ qn=1; y++; }
+  }
+  const cat = {};
+  quarters.forEach(q => {
+    cat[q] = {};
+    QUARTER_CATS.forEach(c => cat[q][c.key] = []);
+    (byQ[q]||[]).forEach(rec => {
+      const c = QUARTER_CATS.find(c => c.test(rec));
+      cat[q][c.key].push(rec);
+    });
+  });
+  return { quarters, byQ, cat };
+}
+let quarterTipTimer = null;
+function hideQuarterTip(delay){
+  clearTimeout(quarterTipTimer);
+  quarterTipTimer = setTimeout(()=>{ const t=document.getElementById('quarter-tip'); if(t) t.classList.remove('show'); }, delay||250);
+}
+function showQuarterTip(q, qd, chart, caretX, caretY){
+  const tip = document.getElementById('quarter-tip');
+  if(!tip) return;
+  clearTimeout(quarterTipTimer);
+  const label = q.replace('-Q', ' Q');
+  const all = qd.byQ[q] || [];
+  const rows = QUARTER_CATS.filter(c => qd.cat[q][c.key].length || c.key!=='other').map(c =>
+    `<div class="qt-row"><span class="qt-sw" style="background:${c.color};"></span>${escapeHtml(c.label)}<span class="qt-n">${qd.cat[q][c.key].length}</span></div>`).join('');
+  const list = all.length ? all.slice().sort((a,b)=>(a.date||'').localeCompare(b.date||'') || (a.eosm||'').localeCompare(b.eosm||'')).map(rec =>
+    `<a href="#" class="qt-inc" data-qid="${escapeHtml(rec.id)}"><div class="qt-eosm">${escapeHtml(rec.eosm||'')}</div><div class="qt-title">${escapeHtml(rec.title||'(untitled)')}</div></a>`).join('')
+    : '<div class="qt-title">No incidents this quarter</div>';
+  tip.innerHTML = `<div class="qt-head"><span class="qt-q">${escapeHtml(label)}</span><span class="qt-total">${all.length} incident${all.length===1?'':'s'}</span></div>${rows}<div class="qt-sub">Incidents</div>${list}`;
+  tip.querySelectorAll('.qt-inc').forEach(a=>a.addEventListener('click', e=>{
+    e.preventDefault(); tip.classList.remove('show'); openIncidentDetail(a.getAttribute('data-qid'));
+  }));
+  if(!tip.dataset.wired){
+    tip.addEventListener('mouseenter', ()=>clearTimeout(quarterTipTimer));
+    tip.addEventListener('mouseleave', ()=>hideQuarterTip(150));
+    tip.dataset.wired='1';
+  }
+  tip.classList.add('show');
+  const rect = chart.canvas.getBoundingClientRect();
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let left = rect.left + caretX + 14;
+  if(left + w > window.innerWidth - 8) left = rect.left + caretX - w - 14;
+  if(left < 8) left = 8;
+  let top = rect.top + caretY - h/2;
+  top = Math.max(8, Math.min(top, window.innerHeight - h - 8));
+  tip.style.left = left + 'px'; tip.style.top = top + 'px';
+}
+const quarterTotalsPlugin = {
+  id:'quarterTotals',
+  afterDatasetsDraw(chart){
+    const { ctx } = chart;
+    const n = chart.data.labels.length;
+    ctx.save();
+    ctx.fillStyle = '#E6E8EB'; ctx.font = '600 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    for(let i=0;i<n;i++){
+      let total = 0, topY = null, x = null;
+      chart.data.datasets.forEach((ds,di)=>{
+        const v = ds.data[i]; if(!v) return;
+        total += v;
+        const bar = chart.getDatasetMeta(di).data[i];
+        if(bar){ x = bar.x; topY = topY===null ? bar.y : Math.min(topY, bar.y); }
+      });
+      if(total>0 && topY!==null) ctx.fillText(String(total), x, topY - 4);
+    }
+    ctx.restore();
+  }
+};
+function renderQuarterlyChart(){
+  destroyChart('chartQuarterly');
+  const canvas = document.getElementById('chartQuarterly');
+  if(!canvas) return;
+  const qd = buildQuarterData();
+  if(!qd.quarters.length) return;
+  const labels = qd.quarters.map(q => q.replace('-Q',' Q'));
+  const datasets = QUARTER_CATS.filter(c => c.key!=='other' || qd.quarters.some(q=>qd.cat[q].other.length)).map(c => ({
+    label:c.label, backgroundColor:c.color, borderRadius:2, maxBarThickness:64,
+    data: qd.quarters.map(q => qd.cat[q][c.key].length)
+  }));
+  charts.chartQuarterly = new Chart(canvas, {
+    type:'bar',
+    data:{ labels, datasets },
+    plugins:[quarterTotalsPlugin],
+    options:{ responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      layout:{ padding:{ top:18 } },
+      plugins:{
+        legend:{ position:'bottom', labels:{ color:'#8B9199', boxWidth:10, font:{size:11} } },
+        tooltip:{ enabled:false, external:(ctx)=>{
+          const t = ctx.tooltip;
+          if(!t || t.opacity===0){ hideQuarterTip(250); return; }
+          const idx = t.dataPoints && t.dataPoints.length ? t.dataPoints[0].dataIndex : null;
+          if(idx===null) return;
+          showQuarterTip(qd.quarters[idx], qd, ctx.chart, t.caretX, t.caretY);
+        } }
+      },
+      scales:{
+        x:{ stacked:true, ticks:{color:'#8B9199'}, grid:{display:false} },
+        y:{ stacked:true, beginAtZero:true, ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'}, title:{ display:true, text:'Incidents', color:'#8B9199' } }
+      }
+    }
+  });
+}
+
 function renderTrendCharts(){
   destroyChart('chartMonthly'); destroyChart('chartContractor'); destroyChart('chartType');
+  renderQuarterlyChart();
 
   const byMonth = {};
   incidents.forEach(i=>{
