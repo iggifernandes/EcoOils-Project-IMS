@@ -5552,6 +5552,55 @@ const EOSM076_DATA = {
 };
 
 
+function backfillEosm077(){ return backfillByEosm('EOSM-077', EOSM077_DATA); }
+
+const EOSM077_DATA = {
+  eosm: "EOSM-077-KKS-LSR",
+  title: "Confined Space Entry Without Atmospheric Re-Test or Hole Watcher",
+  classification: "LSR Violation",
+  date: "2026-10-10",
+  time: "14:33",
+  location: "Plenum Chamber, DTP Area, Sei Mangkei, North Sumatra",
+  contractor: "KKS",
+  type: "LSR Violation",
+  subtype: "Unsafe act",
+  activity: "Structural and mechanical installation; plugging in an internal lighting power socket inside the Plenum Chamber",
+  casualty: "Not Applicable (N/A) — NIL",
+  shellControl: "Yes",
+  description: "Two CONTRACTOR riggers entered the Plenum Chamber to plug in an internal lighting power socket. They entered without re-verifying atmospheric conditions and without a Hole Watcher standing by at the access manhole. The HSE Officer, performing site rounds, identified the entry and exercised Stop Work Authority (SWA). All four personnel were instructed to evacuate the chamber and the access point was secured. No injury resulted.",
+  immediateActions: "1. HSE Officer exercised SWA and stopped the work.\n2. All four personnel were instructed to evacuate the Plenum Chamber.\n3. The access point was secured.",
+  actualRatings: {"People": 0, "Assets": 0, "Environment": 0, "Reputation": 0},
+  potentialRatings: {"People": {"severity": 5, "likelihood": "B"}, "Assets": {"severity": 0, "likelihood": "B"}, "Environment": {"severity": 0, "likelihood": "B"}, "Reputation": {"severity": 0, "likelihood": "B"}},
+  area: "Plenum Chamber, DTP Area, Sei Mangkei, North Sumatra",
+  spheraId: "",
+  incidentConsequences: "Actual — P0, A0, E0, R0: no injury, asset damage or environmental impact. Potential — P5B: entry into a confined space without a fresh atmospheric test and without a Hole Watcher could expose personnel to an oxygen-deficient or toxic atmosphere with no one at the entrance to raise the alarm or start a rescue, with fatality as the credible worst case. The source report left the rating blank (\"to be filled by EcoOils\"); P5B is assigned in this register on that basis and is to be confirmed. Assets, Environment and Reputation are rated 0B pending the investigation.",
+  noInjury: true,
+  investigationDetails: "PRELIMINARY INCIDENT NOTIFICATION from the CONTRACTOR, received on the day of the incident. No investigation findings, root cause analysis or corrective actions are contained in the source.",
+  investigationTeam: "CONTRACTOR HSE (author not named in the source); detected by the HSE Officer on site rounds.",
+  investigationDate: "2026-10-10",
+  problemStatement: "Personnel are expected to re-test the atmosphere and re-validate the Confined Space Entry Permit with a Hole Watcher in place before re-entering a confined space after a work stoppage or postponement. Instead, two riggers entered the Plenum Chamber to plug in a lighting socket without re-verifying atmospheric conditions and without a Hole Watcher at the access manhole.",
+  expectation: "Atmospheric conditions are re-tested and the Confined Space Entry Permit is re-validated before every re-entry. A trained Hole Watcher is stationed at the entry point for the full duration of the entry.",
+  actualCondition: "Two riggers entered the Plenum Chamber at about 14:33 without a gas re-test, without a Hole Watcher at the manhole, and without re-validating the permit after the work break.",
+  impactPotential: "Exposure to an unverified atmosphere in a confined space with no attendant at the entrance, so no alarm or rescue could be initiated; potential for fatality.",
+  incidentSequence: "10 October 2026:\n~14:33 Hrs. (afternoon shift): Two CONTRACTOR riggers entered the Plenum Chamber in the DTP Area to plug in an internal lighting power socket, without re-verifying atmospheric conditions and without a Hole Watcher standing by at the access manhole.\n(Immediately following): The HSE Officer, performing site rounds, identified the entry and exercised SWA. All four personnel were instructed to evacuate the chamber and the access point was secured.",
+  relatedFacts: "Recorded as received; points not stated in the source are listed rather than assumed. (1) Incident number: the source leaves the serial number \"to be filled by EcoOils\"; EOSM-077-KKS-LSR is the number given by the HSSE Manager. (2) Classification: the source says \"LSR Breach\"; recorded here as LSR Violation, consistent with the register. (3) Personnel: the narrative states two riggers entered, yet \"all 4 personnel\" were told to evacuate; the other two persons, and whether they were inside the chamber, are not identified. (4) Prior test and permit: the source refers to \"re-verifying\" the atmosphere and \"re-validating\" the permit after a work stoppage or postponement, which implies an earlier gas test and an active permit. The source does not state when the earlier test was done, whether the permit was still valid, or who the permit holder and Authorised Gas Tester were. (5) Source wording on the permit breach says re-validation was to be done \"with the HSE/Hole Watcher team\", leaving unclear who is responsible for re-validation. (6) The HSE Officer, the author of the notification, and the supervisor responsible for the riggers are not named. (7) The source contains no RAM rating, no root cause, no Tripod Beta selection and no corrective actions; the record is treated as a preliminary notification. (8) Source title: \"Confined space Entry Violation (procedural breach)\".",
+  supportingDocsStatus: "Preliminary Incident Notification Report only. No photographs, permit copy, gas test record or statements are attached.",
+  fiveWhys: [],
+  tripodFactors: [],
+  tripodNotes: "- **Status:** Preliminary notification only. Root cause analysis and Tripod Beta selection have not yet been done.\n- **Violations identified in the source:** (1) entry to a confined space without a valid gas re-test after a work stoppage; (2) no dedicated, trained Hole Watcher at the entry point; (3) Confined Space Entry Permit not re-validated before afternoon re-entry.",
+  processSafetyFundamentals: "",
+  assetRulesViolation: "Not Applicable (N/A)",
+  immediateCauseOther: "Unsafe Act (preliminary): entry into a confined space without atmospheric re-testing, without a Hole Watcher and without re-validating the permit after a work stoppage. LSR violations identified in the source: Confined Space Entry; Safety Line of Defence (Hole Watcher); Work Permit Compliance.",
+  recommendation: "Pending completion of the investigation. Source records Stop Work Authority exercised, evacuation of all personnel and securing of the access point. No corrective actions have been proposed in the source.",
+  correctiveActionsTable: [],
+  lessonsLearned: [],
+  fimList: [],
+  status: "Investigating",
+  rootCause: "Not yet determined — investigation pending. The source identifies three procedural failures: no atmospheric re-test after the work stoppage, no Hole Watcher at the access manhole, and no re-validation of the Confined Space Entry Permit before re-entry.",
+  corrective: "Immediate actions only: SWA exercised, all personnel evacuated, access point secured. Corrective actions to be defined once the investigation is complete.",
+  attachments: []
+};
+
 function backfillEosm057(){ return backfillByEosm('EOSM-057', EOSM057_DATA); }
 
 const EOSM057_DATA = {
@@ -6456,6 +6505,60 @@ const EOSM052_DATA = {
   attachments: []
 };
 
+function backfillEosm028(){ return backfillByEosm('EOSM-028', EOSM028_DATA); }
+
+const EOSM028_DATA = {
+  eosm: 'EOSM-028-PBS-NM',
+  title: 'Excavator Contacted Temporary Roof',
+  classification: 'Near Miss',
+  date: '',
+  time: '',
+  location: '',
+  contractor: 'PBS',
+  type: 'Near Miss',
+  subtype: '',
+  activity: '',
+  casualty: 'Not Applicable (N/A) — NIL',
+  shellControl: 'Yes',
+  description: 'PLACEHOLDER RECORD — only the incident folder name/title is currently known; no PIN, investigation report, or other source document has been provided yet. This record exists so the register and the Drive folder structure have a matching entry for this incident number; every field below is a placeholder pending the actual source material.',
+  immediateActions: '',
+  actualRatings: { People: 0, Assets: 0, Environment: 0, Reputation: 0 },
+  potentialRatings: {
+    People: { severity: 0, likelihood: 'B' },
+    Assets: { severity: 0, likelihood: 'B' },
+    Environment: { severity: 0, likelihood: 'B' },
+    Reputation: { severity: 0, likelihood: 'B' }
+  },
+  area: '',
+  spheraId: '',
+  incidentConsequences: 'Not yet available — no source document provided.',
+  noInjury: true,
+  investigationDetails: 'No investigation report or PIN has been provided for this incident yet.',
+  investigationTeam: '',
+  investigationDate: '',
+  problemStatement: '',
+  expectation: '',
+  actualCondition: '',
+  impactPotential: '',
+  incidentSequence: '',
+  relatedFacts: 'This is a placeholder record created from the incident\'s folder name/title only, to keep the register\'s numbering complete ahead of the Drive folder-structure work. No PIN, investigation report, RAM rating, 5-Why, or corrective actions have been provided for this incident as of this entry. Replace this record in full once the source document is available.',
+  supportingDocsStatus: '',
+  fiveWhys: [],
+  tripodFactors: [],
+  tripodNotes: "",
+  processSafetyFundamentals: '',
+  assetRulesViolation: 'Not Applicable (N/A)',
+  immediateCauseOther: '',
+  recommendation: '',
+  correctiveActionsTable: [],
+  lessonsLearned: [],
+  fimList: [],
+  status: 'Investigating',
+  rootCause: 'Not yet available — no source document provided.',
+  corrective: 'Not yet available — no source document provided.',
+  attachments: []
+};
+
 function backfillEosm053(){ return backfillByEosm('EOSM-053', EOSM053_DATA); }
 
 function backfillEosm053(){ return backfillByEosm('EOSM-053', EOSM053_DATA); }
@@ -6716,6 +6819,7 @@ async function loadIncidents(){
   const changed54 = backfillEosm054();
   const changed56 = backfillEosm056();
   const changed76 = backfillEosm076();
+  const changed77 = backfillEosm077();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -6729,11 +6833,12 @@ async function loadIncidents(){
   const changed68 = backfillEosm068();
   const changed69 = backfillEosm069();
   const changed52 = backfillEosm052();
+  const changed28 = backfillEosm028();
   const changed53 = backfillEosm053();
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if(changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed53 || changed55 || changed58 || wireRopeIdx > -1){
+  if(changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1){
     await saveIncidents();
   }
   renderAll();
