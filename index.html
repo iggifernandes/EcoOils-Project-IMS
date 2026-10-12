@@ -8442,10 +8442,28 @@ function renderEarlyLearnings(rec){
     <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--text-dim);">${escapeHtml(f.label)}${f.hint ? ` <span style="color:var(--text-faint);">— ${escapeHtml(f.hint)}</span>` : ''}
       <textarea id="${elInputId(f.key)}" rows="${f.rows}" style="width:100%; margin-top:4px; background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:8px; font:inherit; font-size:13px; resize:vertical;">${escapeHtml(e[f.key] || '')}</textarea>
     </label>`).join('');
-  const q = encodeURIComponent(rec.eosm || '');
-  document.getElementById('el-card-link').href = MOM_APP_URL + '?card=' + q;
-  document.getElementById('el-mom-link').href = MOM_APP_URL + '?mom=' + q;
+  elUpdateLinks(rec);
+  box.oninput = () => elUpdateLinks(rec);
   document.getElementById('el-status').textContent = e.updated ? ('Last saved ' + e.updated) : 'Not saved yet';
+}
+// The links carry the incident and its learnings in the URL, so the MOM app
+// does not depend on reaching the register over the network.
+function elPayload(rec){
+  const val = k => { const el = document.getElementById(elInputId(k)); return el ? el.value.trim() : ((rec.earlyLearnings||{})[k] || ''); };
+  return {
+    eosm: rec.eosm || '', title: rec.title || '', date: rec.date || '', time: rec.time || '', location: rec.location || '',
+    contractor: rec.contractor || '', classification: rec.classification || rec.type || '', type: rec.type || '', riskLevel: rec.riskLevel || '',
+    description: rec.description || '', immediateActionsRecord: rec.immediateActions || '',
+    whatHappened: val('whatHappened'), earlyFindings: val('earlyFindings'), keyLearnings: val('keyLearnings'),
+    immediateActions: val('immediateActions'), lsrRule: val('lsrRule'), preparedBy: val('preparedBy'), standDownDate: val('standDownDate')
+  };
+}
+function elUpdateLinks(rec){
+  const json = JSON.stringify(elPayload(rec));
+  const d = encodeURIComponent(btoa(unescape(encodeURIComponent(json))));
+  const q = encodeURIComponent(rec.eosm || '');
+  document.getElementById('el-card-link').href = MOM_APP_URL + '?card=' + q + '&d=' + d;
+  document.getElementById('el-mom-link').href = MOM_APP_URL + '?mom=' + q + '&d=' + d;
 }
 function elPlainLines(text){
   return String(text || '').split(/\n+/).map(l => l.replace(/^\s*\d+[.)]\s*/, '').trim()).filter(Boolean).join('\n');
