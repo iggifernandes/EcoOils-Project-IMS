@@ -5614,6 +5614,78 @@ const EOSM077_DATA = {
   attachments: []
 };
 
+function backfillEosm078(){ return backfillByEosm('EOSM-078', EOSM078_DATA); }
+
+const EOSM078_DATA = {
+  "eosm": "EOSM-078-GSB-LSR",
+  "title": "Worker Walking on a Beam without a Fall Protection System",
+  "classification": "LSR Violation",
+  "date": "2026-10-20",
+  "time": "09:10",
+  "location": "Silo Tank Area, Sei Mangkei, North Sumatra",
+  "contractor": "GSB",
+  "type": "LSR Violation",
+  "subtype": "Unsafe act",
+  "activity": "Preparation for fit-up of Cone #1 (preparing tools and equipment); worker moved to retrieve a nylon rope hanging on the other side of the beam",
+  "casualty": "Not Applicable (N/A) — NIL",
+  "shellControl": "Yes",
+  "description": "At 08:40 hrs on 20 October 2026, during preparation for the fit-up of Cone #1, a GSB worker was preparing tools and equipment. He then intended to take a nylon rope hanging on the other side. At 09:10 hrs, while attempting to take it, the worker walked along a beam at an elevation of approximately 6 metres without any fall protection system. This exposed him to a significant risk of falling from height and breached the Life Saving Rule on Working at Height. No injury resulted. The worker is part of the GSB team involved in the earlier Silo Tank Area working-at-height incident EOSM-072-GSB-NM (16 September 2026).",
+  "immediateActions": "1. The worker was immediately restricted from site access.\n2. A Stand-Down was conducted with the crew on 21 October 2026.\n3. Information was shared with all contractors.",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 0,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 4,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "Silo Tank Area, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual — P0, A0, E0, R0: no injury, asset damage or environmental impact. Potential — P4B (proposed, to be confirmed): a fall from approximately 6 metres onto a hard surface could cause permanent disabling injury, with fatality possible. The source gave no RAM rating; this rating is assigned in this register. Assets, Environment and Reputation are rated 0B pending the investigation. Reputation exposure is likely higher than 0 given this is a repeat LSR working-at-height breach by the same crew; to be assessed.",
+  "noInjury": true,
+  "investigationDetails": "PRELIMINARY INCIDENT NOTIFICATION — this record reflects the initial incident summary provided by the HSSE Manager. No investigation findings, root cause analysis or corrective actions have been issued yet.",
+  "investigationTeam": "To be assigned (GSB with EcoOils HSSE).",
+  "investigationDate": "2026-10-20",
+  "problemStatement": "Personnel working at height must be protected by a fall protection system (harness tied off to a suitable anchorage, or equivalent) at all times above 1.8 m. Instead, a worker walked along a beam at approximately 6 m with no fall protection to retrieve a nylon rope.",
+  "expectation": "No one moves along a beam or any open edge at height without an approved fall protection system. A rope or other item out of reach is retrieved with a safe method (a tool, another person from a safe position, or a fall arrest system with 100% tie-off), not by walking the beam.",
+  "actualCondition": "At 09:10 the worker walked on a beam about 6 m above ground without any fall protection to take a hanging nylon rope, during preparation for the Cone #1 fit-up.",
+  "impactPotential": "Fall from approximately 6 m with potential for permanent disabling injury or fatality.",
+  "incidentSequence": "20 October 2026:\n08:40 Hrs: During preparation for the fit-up of Cone #1, the worker was preparing tools and equipment. He then intended to take a nylon rope hanging on the other side.\n09:10 Hrs: While attempting to take the rope, the worker walked on a beam at an elevation of approximately 6 metres without any fall protection system, exposing him to a significant risk of falling and breaching the Working at Height LSR.\n(After detection): The worker was immediately restricted from site access.\n21 October 2026: Stand-Down conducted with the crew; information shared with all contractors.",
+  "relatedFacts": "Recorded as received; points not stated in the source are listed rather than assumed. (1) Incident number: EOSM-078-GSB-LSR is assigned in sequence after EOSM-077. (2) Prior incident: the HSSE Manager stated the worker was part of the team involved in the previous incident; this record references EOSM-072-GSB-NM (Working at Height Without 100% Tie Off, Silo Tank Area, 16 September 2026, also an LSR Working at Height breach) and EOSM-073-GSB-NM (the dropped chain block from the same event). It is not stated whether this worker was personally one of those who failed to tie off on 16 September; to be confirmed. If he was, this is a repeat breach by the same individual. (3) Not stated in the source: the worker's name and ID, who detected the breach, whether a harness was worn, whether a Work at Height permit was in place, the supervisor and the permit holder, and the duration of the site access restriction. (4) The source gives no RAM rating; P4B is proposed. (5) The Stand-Down on 21 October took place the day after the incident. (6) Information shared with all contractors; the channel (SIMOPS meeting, toolbox talk or alert) is not stated.",
+  "supportingDocsStatus": "Incident summary only. No photographs, permit copy or statements are attached.",
+  "fiveWhys": [],
+  "tripodFactors": [],
+  "tripodNotes": "- **Status:** Preliminary notification only. Root cause analysis and Tripod Beta selection have not yet been done.\n- **Pattern to examine:** second GSB Working-at-Height LSR breach in the Silo Tank Area within five weeks (see EOSM-072); the earlier corrective actions did not prevent a repeat by the same team.",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "Unsafe Act (preliminary): moving along a beam at about 6 m without any fall protection system to retrieve a nylon rope. LSR violation: Working at Height.",
+  "recommendation": "Pending completion of the investigation. Recommended for the investigation: (1) establish why the earlier stand-down and actions after EOSM-072 did not hold for this team; (2) confirm the worker's involvement in EOSM-072; (3) decide return-to-site conditions (re-induction and working-at-height competence check) and any consequence-management action under the contractor discipline process; (4) provide a safe way to retrieve out-of-reach items at height; (5) check supervision cover for preparation tasks at height.",
+  "correctiveActionsTable": [],
+  "lessonsLearned": [],
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "Not yet determined - investigation pending.",
+  "corrective": "Immediate actions only: worker restricted from site, crew Stand-Down on 21 October 2026, information shared with all contractors. Corrective actions to be defined once the investigation is complete.",
+  "attachments": []
+};
+
+
 function backfillEosm057(){ return backfillByEosm('EOSM-057', EOSM057_DATA); }
 
 const EOSM057_DATA = {
@@ -6842,6 +6914,7 @@ async function loadIncidents(){
   const changed56 = backfillEosm056();
   const changed76 = backfillEosm076();
   const changed77 = backfillEosm077();
+  const changed78 = backfillEosm078();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -6860,7 +6933,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -8429,7 +8502,8 @@ const DRIVE_FOLDER_IDS = {
   '074':'1emqO-N4XT659g1CbNKUCExtDCRn6Xb2o',
   '075':'1O4NJGJEXmk9t_FfI8NTpjS5pXLLLMSky',
   '076':'1xVXPiGvh-FGMDOaVnnzWF3Cw6bCMI8TD',
-  '077':'1zK4qLYcxPegs5cedX9yQreZAAKe5gr-Z'
+  '077':'1zK4qLYcxPegs5cedX9yQreZAAKe5gr-Z',
+  '078':'1vK3YwuPLpEHULEIc1YDOzm10j97BH97Y'
 };
 function driveUrlForRec(rec){
   const mm = /^EOSM-(\d+)/i.exec((rec && rec.eosm) || '');
@@ -9609,7 +9683,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.1.2';
+const APP_VERSION = '1.1.3';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
