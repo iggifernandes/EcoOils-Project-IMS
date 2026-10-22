@@ -5,27 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HSSE Incident Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#14171A; --panel:#1C2024; --panel2:#22262B; --border:#2C3238; --border-soft:#262A2F;
-    --text:#E8E6E1; --text-dim:#8B9199; --text-faint:#5C6369;
-    --amber:#F5A623; --amber-dim:#C6820F; --amber-bg:rgba(245,166,35,0.1);
-    --red:#E5484D; --red-bg:rgba(229,72,77,0.12);
-    --green:#4CAF6D; --green-bg:rgba(76,175,109,0.12);
-    --blue:#4A9EDB; --blue-bg:rgba(74,158,219,0.12);
+    --bg:#ffffff; --panel:#ffffff; --panel2:#f6f6f6; --border:#dcdcdc; --border-soft:#ebebeb;
+    --text:#231f20; --text-dim:#5f5b5c; --text-faint:#8a8788;
+    --amber:#2f7d57; --amber-dim:#44a276; --amber-bg:rgba(68,162,118,0.12);
+    --red:#c0392b; --red-bg:rgba(192,57,43,0.10);
+    --green:#44a276; --green-bg:rgba(68,162,118,0.12);
+    --blue:#5f5b5c; --blue-bg:rgba(170,170,170,0.15);
+    --yellow:#ffc600;
   }
   *{box-sizing:border-box;}
   html, body{height:100%; margin:0;}
-  body{background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:14px;}
-  .display{font-family:'Oswald',sans-serif; letter-spacing:0.02em;}
-  .mono{font-family:'IBM Plex Mono',monospace;}
+  body{background:var(--bg); color:var(--text); font-family:Jost, system-ui, Arial, sans-serif; font-size:14px;}
+  .display{font-family:Jost, system-ui, Arial, sans-serif; letter-spacing:0.02em;}
+  .mono{font-family:Jost, system-ui, Arial, sans-serif;}
   .app{display:flex; height:100vh; overflow:hidden;}
 
   .sidebar{width:220px; flex-shrink:0; height:100vh; overflow-y:auto; background:var(--panel); border-right:1px solid var(--border); padding:20px 0; display:flex; flex-direction:column;}
   .brand{padding:0 20px 20px; border-bottom:1px solid var(--border); margin-bottom:12px;}
-  .brand .tag{display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; color:var(--amber); border:1px solid var(--amber-dim); padding:2px 6px; border-radius:2px; margin-bottom:8px;}
-  .brand h1{font-family:'Oswald',sans-serif; font-size:17px; font-weight:600; margin:0 0 2px; line-height:1.25;}
+  .brand .tag{display:inline-block; font-family:Jost, system-ui, Arial, sans-serif; font-size:10px; letter-spacing:0.12em; color:var(--amber); border:1px solid var(--amber-dim); padding:2px 6px; border-radius:2px; margin-bottom:8px;}
+  .brand h1{font-family:Jost, system-ui, Arial, sans-serif; font-size:17px; font-weight:600; margin:0 0 2px; line-height:1.25;}
   .brand p{margin:0; font-size:11px; color:var(--text-dim);}
 
   .nav{display:flex; flex-direction:column; gap:2px; padding:0 10px;}
@@ -40,7 +41,7 @@
   .main{flex:1; height:100vh; overflow-y:auto; padding:28px 36px; max-width:1180px;}
   .view{display:none;}
   .view.active{display:block;}
-  h2.page-title{font-family:'Oswald',sans-serif; font-size:22px; font-weight:600; margin:0 0 4px;}
+  h2.page-title{font-family:Jost, system-ui, Arial, sans-serif; font-size:22px; font-weight:600; margin:0 0 4px;}
   .page-sub{color:var(--text-dim); font-size:13px; margin:0 0 24px;}
 
   .card{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px 20px;}
@@ -51,8 +52,8 @@
   .grid-5{grid-template-columns:repeat(5,1fr);}
 
   .stat .label{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin-bottom:8px;}
-  .stat .value{font-family:'Oswald',sans-serif; font-size:30px; font-weight:600;}
-  .stat .value.red{color:var(--red);} .stat .value.amber{color:var(--amber);} .stat .value.green{color:var(--green);}
+  .stat .value{font-family:Jost, system-ui, Arial, sans-serif; font-size:30px; font-weight:600;}
+  .stat .value.red{color:#231f20;} .stat .value.amber{color:var(--amber);} .stat .value.green{color:var(--green);}
 
   label{display:block; font-size:12px; color:var(--text-dim); margin:14px 0 6px; font-weight:500;}
   label:first-child{margin-top:0;}
@@ -60,22 +61,22 @@
     width:100%; background:var(--panel2); border:1px solid var(--border); color:var(--text);
     padding:9px 10px; border-radius:6px; font-family:inherit; font-size:13px;
   }
-  textarea{resize:vertical; min-height:70px; font-family:'Inter',sans-serif;}
+  textarea{resize:vertical; min-height:70px; font-family:Jost, system-ui, Arial, sans-serif;}
   input:focus,select:focus,textarea:focus{outline:none; border-color:var(--amber-dim);}
   .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
 
-  .btn{all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:6px; font-size:13px; font-weight:600; font-family:'Inter',sans-serif;}
-  .btn-primary{background:var(--amber); color:#1A1500;}
-  .btn-primary:hover{background:#FFB53A;}
+  .btn{all:unset; cursor:pointer; display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:6px; font-size:13px; font-weight:600; font-family:Jost, system-ui, Arial, sans-serif;}
+  .btn-primary{background:#44a276; color:#231f20;}
+  .btn-primary:hover{background:#3a8e68;}
   .btn-primary:disabled{opacity:0.5; cursor:default;}
   .btn-ghost{border:1px solid var(--border); color:var(--text-dim);}
   .btn-ghost:hover{color:var(--text); border-color:var(--text-faint);}
 
   .sev-pill{display:inline-block; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; padding:3px 8px; border-radius:20px;}
-  .risk-Low{background:rgba(174,214,241,0.18); color:#AED6F1;}
-  .risk-Medium{background:rgba(36,113,163,0.22); color:#5DADE2;}
-  .risk-High{background:rgba(244,208,63,0.18); color:#F4D03F;}
-  .risk-Serious{background:rgba(231,76,60,0.18); color:#E74C3C;}
+  .risk-Low{background:#efefef; color:#5f5b5c;}
+  .risk-Medium{background:rgba(68,162,118,0.16); color:#2f7d57;}
+  .risk-High{background:rgba(255,198,0,0.28); color:#6b5300;}
+  .risk-Serious{background:#231f20; color:#ffffff;}
   .status-pill{display:inline-block; font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; border:1px solid var(--border); color:var(--text-dim);}
   .ram-hint{font-size:11px; color:var(--text-faint); margin-top:4px;}
   .ram-picker-cell{cursor:pointer; padding:10px 6px; text-align:center; font-weight:700; border:1px solid rgba(0,0,0,0.15); transition:filter 0.1s;}
@@ -89,50 +90,50 @@
   .inv-block{margin-top:12px;}
   .inv-block .k{color:var(--text-faint); font-size:11px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;}
   .inv-block .v{font-size:13px; color:var(--text-dim); line-height:1.55;}
-  .info-note{display:flex; align-items:flex-start; gap:10px; background:var(--blue-bg); border:1px solid rgba(74,158,219,0.35); border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:12px; color:var(--text-dim); line-height:1.5;}
+  .info-note{display:flex; align-items:flex-start; gap:10px; background:var(--blue-bg); border:1px solid #dcdcdc; border-radius:6px; padding:10px 14px; margin-bottom:16px; font-size:12px; color:var(--text-dim); line-height:1.5;}
   .info-note .icon{flex-shrink:0; width:17px; height:17px; border-radius:50%; border:1.5px solid var(--blue); color:var(--blue); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px;}
   .info-note strong{color:var(--text);}
   .ram-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;}
   .ram-block{border:1px solid var(--border-soft); border-radius:6px; padding:12px 14px; margin-top:14px;}
-  .ram-block h5{margin:0 0 10px; font-family:'Oswald',sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;}
+  .ram-block h5{margin:0 0 10px; font-family:Jost, system-ui, Arial, sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;}
   .risk-readout{margin-top:12px; padding:8px 12px; border-radius:6px; font-size:12px; font-weight:600; display:inline-block; background:var(--panel2); color:var(--text-dim); border:1px solid var(--border);}
 
   .filters{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; position:sticky; top:0; z-index:5; background:var(--bg); padding:10px 0; border-bottom:1px solid var(--border-soft);}
   .filters select, .filters input{width:auto; min-width:130px;}
 
   .tag-card{background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:14px 16px 26px; margin-bottom:10px; position:relative; border-left:3px solid var(--border);}
-  .tag-card.risk-border-Low{border-left-color:#AED6F1;}
-  .tag-card.risk-border-Medium{border-left-color:#2471A3;}
-  .tag-card.risk-border-High{border-left-color:#F4D03F;}
-  .tag-card.risk-border-Serious{border-left-color:#E74C3C;}
+  .tag-card.risk-border-Low{border-left-color:#aaaaaa;}
+  .tag-card.risk-border-Medium{border-left-color:#44a276;}
+  .tag-card.risk-border-High{border-left-color:#ffc600;}
+  .tag-card.risk-border-Serious{border-left-color:#231f20;}
   .tag-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px;}
-  .tag-eosm{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--amber); font-size:13px;}
+  .tag-eosm{font-family:Jost, system-ui, Arial, sans-serif; font-weight:600; color:var(--amber); font-size:13px;}
   .tag-meta{font-size:11px; color:var(--text-faint); margin-top:2px;}
   .tag-badges{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; max-width:60%;}
   .tag-desc{font-size:13px; color:var(--text-dim); line-height:1.5; margin:0;}
   .tag-foot{display:flex; gap:16px; margin-top:10px; font-size:11px; color:var(--text-faint);}
 
   .empty{text-align:center; padding:50px 20px; color:var(--text-faint);}
-  .empty h3{color:var(--text-dim); font-family:'Oswald',sans-serif; font-weight:500; margin-bottom:6px;}
+  .empty h3{color:var(--text-dim); font-family:Jost, system-ui, Arial, sans-serif; font-weight:500; margin-bottom:6px;}
 
   .chart-wrap{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:18px 20px; margin-bottom:16px;}
-  .chart-wrap h3{font-family:'Oswald',sans-serif; font-size:14px; font-weight:500; margin:0 0 14px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em;}
+  .chart-wrap h3{font-family:Jost, system-ui, Arial, sans-serif; font-size:14px; font-weight:500; margin:0 0 14px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em;}
   .chart-canvas-box{position:relative; height:230px;}
 
   .report-section{margin-bottom:18px;}
-  .report-section h4{font-family:'Oswald',sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); margin:0 0 10px;}
+  .report-section h4{font-family:Jost, system-ui, Arial, sans-serif; font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); margin:0 0 10px;}
   .report-item{background:var(--panel2); border:1px solid var(--border-soft); border-radius:6px; padding:12px 14px; margin-bottom:8px;}
   .report-item .t{font-weight:600; font-size:13px; margin-bottom:4px;}
   .report-item .d{font-size:12.5px; color:var(--text-dim); line-height:1.55;}
-  .priority-High{color:var(--red);} .priority-Medium{color:var(--amber);} .priority-Low{color:var(--green);}
+  .priority-High{color:#231f20;} .priority-Medium{color:var(--amber);} .priority-Low{color:var(--green);}
 
   .btn-danger{background:var(--red); color:#fff;}
   .btn-danger:hover{background:#F16065;}
 
-  .modal-overlay{display:none; position:fixed; inset:0; background:rgba(10,11,12,0.65); z-index:100; align-items:center; justify-content:center;}
-  .breakdown-popover{display:none; position:fixed; z-index:90; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,0.45); min-width:260px; max-width:360px; max-height:320px; overflow-y:auto; padding:6px;}
+  .modal-overlay{display:none; position:fixed; inset:0; background:rgba(35,31,32,0.45); z-index:100; align-items:center; justify-content:center;}
+  .breakdown-popover{display:none; position:fixed; z-index:90; background:var(--panel); border:1px solid var(--border); border-radius:8px;  min-width:260px; max-width:360px; max-height:320px; overflow-y:auto; padding:6px;}
   .breakdown-popover.show{display:block;}
-  .quarter-tip{display:none; position:fixed; z-index:95; background:var(--panel); border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 28px rgba(0,0,0,0.45); width:340px; max-height:380px; overflow-y:auto; padding:10px;}
+  .quarter-tip{display:none; position:fixed; z-index:95; background:var(--panel); border:1px solid var(--border); border-radius:8px;  width:340px; max-height:380px; overflow-y:auto; padding:10px;}
   .quarter-tip.show{display:block;}
   .quarter-tip .qt-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
   .quarter-tip .qt-q{font-weight:700; font-size:14px; color:var(--text);}
@@ -154,7 +155,7 @@
   .type-breakdown-hoverable{cursor:pointer;}
   .modal-overlay.show{display:flex;}
   .modal-box{background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:22px 24px; width:320px;}
-  .modal-box h3{font-family:'Oswald',sans-serif; font-size:16px; margin:0 0 8px;}
+  .modal-box h3{font-family:Jost, system-ui, Arial, sans-serif; font-size:16px; margin:0 0 8px;}
   .modal-box p{font-size:12.5px; color:var(--text-dim); margin:0 0 14px; line-height:1.5;}
   .modal-box input{width:100%; background:var(--panel2); border:1px solid var(--border); color:var(--text); padding:9px 10px; border-radius:6px; font-family:inherit; font-size:13px;}
   .reset-error{font-size:11.5px; color:var(--red); min-height:16px; margin-top:6px;}
@@ -180,12 +181,99 @@
   .toast{position:fixed; bottom:20px; right:20px; background:var(--panel2); border:1px solid var(--amber-dim); color:var(--amber); padding:10px 16px; border-radius:6px; font-size:12px; opacity:0; transform:translateY(8px); transition:all .25s; pointer-events:none; z-index:50;}
   .toast.show{opacity:1; transform:translateY(0);}
 
-  .spinner{width:14px; height:14px; border:2px solid rgba(0,0,0,0.2); border-top-color:#1A1500; border-radius:50%; animation:spin 0.7s linear infinite;}
+  .spinner{width:14px; height:14px; border:2px solid rgba(0,0,0,0.2); border-top-color:#231f20; border-radius:50%; animation:spin 0.7s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ===== EcoOils Shell-style interface (v1.2.0) ===== */
+  body{font-family:Jost, system-ui, Arial, sans-serif; font-size:16px; font-weight:400; background:#fff; color:#231f20;}
+  body::after{content:""; position:fixed; right:-36px; bottom:-36px; width:150px; height:150px; opacity:.3; pointer-events:none; z-index:0; background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Ccircle cx='15' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='135' r='7' fill='%23aaaaaa'/%3E%3C/svg%3E") no-repeat center/contain;}
+  .app{position:relative; z-index:1;}
+  .corner{position:fixed; top:8px; right:14px; z-index:60; display:flex; flex-direction:column; align-items:flex-end; gap:2px; background:rgba(255,255,255,.94); padding:4px 8px; border-radius:6px;}
+  #app-version-label{font-size:12px; color:#5f5b5c; font-weight:500; letter-spacing:.04em;}
+  .lang{display:flex; gap:14px;}
+  .lang button{all:unset; cursor:pointer; font-family:inherit; font-size:15px; font-weight:400; color:#5f5b5c; padding:4px 1px 3px; border-bottom:3px solid transparent; min-height:20px;}
+  .lang button.on{color:#231f20; font-weight:600; border-bottom-color:#44a276;}
+  :focus-visible{outline:2px solid #231f20; outline-offset:2px;}
+  input:focus,select:focus,textarea:focus{outline:2px solid #44a276; outline-offset:0; border-color:#44a276;}
+  .sidebar{background:#fff; border-right:1px solid #dcdcdc;}
+  .brand{border-bottom:1px solid #dcdcdc;}
+  .nav button{border-radius:0; border-left:3px solid transparent; color:#231f20; font-size:15px; font-weight:400; padding:10px 12px; min-height:44px; box-sizing:border-box;}
+  .nav button:hover{background:#f6f6f6; color:#231f20;}
+  .nav button.active{background:none; color:#231f20; font-weight:600; border-left-color:#44a276;}
+  .nav .dot{background:#aaaaaa;}
+  .nav button.active .dot{background:#44a276;}
+  .nav-group-label{color:#8a8788; letter-spacing:.14em;}
+  .main{padding:72px 36px 28px;}
+  h2.page-title{font-weight:300; font-size:22px; letter-spacing:.14em; text-transform:uppercase; color:#6e6b6c; margin:0 0 14px; padding:8px 0 14px; position:relative; border-bottom:1px solid #231f20;}
+  h2.page-title::before{content:""; position:absolute; left:0; bottom:-3px; width:44px; height:7px; background:#44a276;}
+  .page-sub{color:#5f5b5c; font-size:15px; margin:0 0 22px;}
+  .card,.chart-wrap{background:#fff; border:1px solid #dcdcdc; border-radius:8px;}
+  .stat .label{color:#5f5b5c; letter-spacing:.1em;}
+  .stat .value{font-family:inherit; font-weight:500;}
+  label{font-size:14px; color:#5f5b5c;}
+  input[type=text],input[type=date],input[type=time],input[type=email],input[type=password],select,textarea{background:#fff; border:1px solid #cfcfcf; color:#231f20; font-size:16px; border-radius:6px;}
+  .btn{min-height:44px; box-sizing:border-box; font-size:15px; font-weight:500; transition:background 150ms, border-color 150ms;}
+  .btn-primary{font-weight:600;}
+  .btn-ghost{background:#fff; border:1px solid #cfcfcf; color:#231f20;}
+  .btn-ghost:hover{border-color:#231f20; color:#231f20;}
+  .btn-danger{background:#231f20; color:#fff;}
+  .btn-danger:hover{background:#3b3536;}
+  .sev-pill,.status-pill,.ram-pick-badge{font-weight:500; letter-spacing:.04em;}
+  .status-pill{background:#fff; color:#231f20;}
+  .status-pill::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:#aaaaaa; margin-right:6px; vertical-align:1px;}
+  .tag-card{background:#fff;}
+  .tag-eosm{color:#231f20; font-weight:600; letter-spacing:.04em; font-variant-numeric:tabular-nums;}
+  .filters{background:#fff;}
+  .empty{color:#8a8788;}
+  .empty::before{content:""; display:block; width:56px; height:56px; margin:0 auto 14px; background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150'%3E%3Ccircle cx='15' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='15' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='45' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='75' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='105' cy='135' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='15' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='45' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='75' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='105' r='7' fill='%23aaaaaa'/%3E%3Ccircle cx='135' cy='135' r='7' fill='%23aaaaaa'/%3E%3C/svg%3E") no-repeat center/contain;}
+  .empty h3{font-weight:300; letter-spacing:.14em; text-transform:uppercase; color:#6e6b6c;}
+  .toast{background:#fff; border:1px solid #ffc600; color:#231f20; font-size:14px;}
+  .modal-box{background:#fff; border:1px solid #dcdcdc;}
+  .modal-box h3,.ram-block h5,.report-section h4,.chart-wrap h3{font-weight:500; letter-spacing:.1em;}
+  .report-section h4{color:#2f7d57;}
+  .report-item,.bt-entry-row{background:#f6f6f6;}
+  .priority-High{color:#231f20; font-weight:600;} .priority-Medium{color:#6b5300;} .priority-Low{color:#2f7d57;}
+  .breakdown-popover,.quarter-tip{background:#fff;}
+  .add-row-link,.bt-add-barrier{color:#2f7d57;}
+  @media (max-width:820px){
+    html,body{height:auto;}
+    .app{flex-direction:column; height:auto; overflow:visible;}
+    .sidebar{width:auto; height:auto; overflow:visible; border-right:0; border-bottom:1px solid #dcdcdc; padding:10px 0 4px;}
+    .brand{padding:0 150px 8px 12px; text-align:left !important; border-bottom:0; margin-bottom:4px;}
+    .brand img{max-height:40px !important;}
+    .nav{flex-direction:row; flex-wrap:wrap; gap:0 4px; padding:0 8px;}
+    .nav button{border-left:0; border-bottom:3px solid transparent; padding:8px 10px; font-size:14px;}
+    .nav button.active{border-bottom-color:#44a276;}
+    .nav-group-label{display:none;}
+    .sidebar-foot{display:none;}
+    .sidebar > .btn{margin:6px 10px 0 !important;}
+    .main{height:auto; overflow:visible; padding:16px 14px 90px; max-width:100%;}
+    h2.page-title{font-size:18px; letter-spacing:.1em;}
+    .grid-4,.grid-5,.grid-6{grid-template-columns:repeat(2,1fr);}
+    .grid-2,.form-row,.ram-row{grid-template-columns:1fr;}
+    .tag-badges{max-width:100%; justify-content:flex-start;}
+    .tag-head{flex-direction:column;}
+    .inv-row{flex-direction:column; gap:2px;}
+    .inv-row .k{width:auto;}
+    .main table{display:block; overflow-x:auto; max-width:100%;}
+    .corner{top:6px; right:8px;}
+    .detail-head{flex-direction:column; gap:6px !important;}
+    .detail-head > div{min-width:0; max-width:100%;}
+    h2.page-title{overflow-wrap:anywhere;}
+  }
+  @media print{ .corner,body::after{display:none !important;} }
 </style>
 </head>
 <body>
 <div class="app">
+  <div class="corner" id="corner">
+    <span id="app-version-label">v1.1.0</span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="id">ID</button>
+      <button type="button" data-lang="ms">MS</button>
+    </div>
+  </div>
 
   <div class="sidebar">
     <div class="brand" style="text-align:center;">
@@ -200,22 +288,21 @@
       </div>
     </div>
     <div class="nav" id="nav">
-      <button data-view="overview" class="active"><span class="dot"></span>Overview</button>
-      <button data-view="register"><span class="dot"></span>Register</button>
-      <button data-view="actions"><span class="dot"></span>Action items</button>
-      <button data-view="trends"><span class="dot"></span>Trends</button>
-      <button data-view="lessons"><span class="dot"></span>Lessons learned</button>
-      <div class="nav-group-label">Analysis</div>
-      <button data-view="bowtie"><span class="dot"></span>Bow-tie</button>
-      <button data-view="fishbone"><span class="dot"></span>Fishbone</button>
-      <button data-view="fivewhy"><span class="dot"></span>5 Whys</button>
+      <button data-view="overview" class="active"><span class="dot"></span><span data-i18n="nav.overview">Overview</span></button>
+      <button data-view="register"><span class="dot"></span><span data-i18n="nav.register">Register</span></button>
+      <button data-view="actions"><span class="dot"></span><span data-i18n="nav.actions">Action items</span></button>
+      <button data-view="trends"><span class="dot"></span><span data-i18n="nav.trends">Trends</span></button>
+      <button data-view="lessons"><span class="dot"></span><span data-i18n="nav.lessons">Lessons learned</span></button>
+      <div class="nav-group-label" data-i18n="nav.analysis">Analysis</div>
+      <button data-view="bowtie"><span class="dot"></span><span data-i18n="nav.bowtie">Bow-tie</span></button>
+      <button data-view="fishbone"><span class="dot"></span><span data-i18n="nav.fishbone">Fishbone</span></button>
+      <button data-view="fivewhy"><span class="dot"></span><span data-i18n="nav.fivewhy">5 Whys</span></button>
     </div>
     <div class="sidebar-foot">Data stored privately in this artifact. Nothing leaves your session except the report generation call.</div>
-    <button class="btn btn-ghost" id="btn-sync-now" style="margin:12px 10px 0; justify-content:center;">Sync to Sheets now</button>
-    <button class="btn btn-ghost" id="btn-export-xlsx" style="margin:8px 10px 0; justify-content:center;">Download all data as Excel</button>
-    <button class="btn btn-ghost" id="btn-refresh-app" style="margin:8px 10px 0; justify-content:center;">Refresh</button>
+    <button class="btn btn-ghost" id="btn-sync-now" style="margin:12px 10px 0; justify-content:center;" data-i18n="b.sync">Sync to Sheets now</button>
+    <button class="btn btn-ghost" id="btn-export-xlsx" style="margin:8px 10px 0; justify-content:center;" data-i18n="b.exportall">Download all data as Excel</button>
+    <button class="btn btn-ghost" id="btn-refresh-app" style="margin:8px 10px 0; justify-content:center;" data-i18n="b.refresh">Refresh</button>
     <div class="sidebar-foot" style="border-top:none; padding-top:6px; display:flex; justify-content:space-between; align-items:center;">
-      <span id="app-version-label">v1.1.0</span>
       <span id="app-last-refreshed" style="color:var(--text-faint);"></span>
     </div>
   </div>
@@ -228,8 +315,8 @@
       <input type="password" id="reset-password" placeholder="Password">
       <div id="reset-error" class="reset-error"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-reset-cancel">Cancel</button>
-        <button class="btn btn-danger" id="btn-reset-confirm">Delete everything</button>
+        <button class="btn btn-ghost" id="btn-reset-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-danger" id="btn-reset-confirm" data-i18n="b.delall">Delete everything</button>
       </div>
     </div>
   </div>
@@ -244,8 +331,8 @@
       <label>Location (optional)</label>
       <input type="text" id="new-project-location" placeholder="e.g. Sei Mangkei SEZ, North Sumatra">
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-project-cancel">Cancel</button>
-        <button class="btn btn-primary" id="btn-project-confirm">Add project</button>
+        <button class="btn btn-ghost" id="btn-project-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-project-confirm" data-i18n="b.addproject">Add project</button>
       </div>
     </div>
   </div>
@@ -259,8 +346,8 @@
       <label>Location (optional)</label>
       <input type="text" id="edit-project-location" placeholder="e.g. Sei Mangkei SEZ, North Sumatra">
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-edit-project-cancel">Cancel</button>
-        <button class="btn btn-primary" id="btn-edit-project-confirm">Save changes</button>
+        <button class="btn btn-ghost" id="btn-edit-project-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-edit-project-confirm" data-i18n="b.savechanges">Save changes</button>
       </div>
     </div>
   </div>
@@ -272,8 +359,8 @@
       <input type="password" id="delete-project-password" placeholder="Password">
       <div id="delete-project-error" class="reset-error"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-delete-project-cancel">Cancel</button>
-        <button class="btn btn-danger" id="btn-delete-project-confirm">Delete project</button>
+        <button class="btn btn-ghost" id="btn-delete-project-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-danger" id="btn-delete-project-confirm" data-i18n="b.delproject">Delete project</button>
       </div>
     </div>
   </div>
@@ -285,8 +372,8 @@
       <input type="password" id="delete-incident-password" placeholder="Password">
       <div id="delete-incident-error" class="reset-error"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-delete-incident-cancel">Cancel</button>
-        <button class="btn btn-danger" id="btn-delete-incident-confirm">Delete incident</button>
+        <button class="btn btn-ghost" id="btn-delete-incident-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-danger" id="btn-delete-incident-confirm" data-i18n="b.delincident">Delete incident</button>
       </div>
     </div>
   </div>
@@ -298,8 +385,8 @@
       <input type="password" id="investigation-password-input" placeholder="Password">
       <div id="investigation-password-error" class="reset-error"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-investigation-password-cancel">Cancel</button>
-        <button class="btn btn-primary" id="btn-investigation-password-confirm">Continue</button>
+        <button class="btn btn-ghost" id="btn-investigation-password-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-investigation-password-confirm" data-i18n="b.continue">Continue</button>
       </div>
     </div>
   </div>
@@ -315,8 +402,8 @@
       <input type="file" id="attachment-file">
       <div id="attachment-error" class="reset-error"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-attachment-cancel">Cancel</button>
-        <button class="btn btn-primary" id="btn-attachment-confirm">Add document</button>
+        <button class="btn btn-ghost" id="btn-attachment-cancel" data-i18n="b.cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-attachment-confirm" data-i18n="b.adddoc">Add document</button>
       </div>
     </div>
   </div>
@@ -327,15 +414,15 @@
       <label style="margin-top:0;">Email subject</label>
       <div style="display:flex; gap:8px; align-items:center;">
         <input type="text" id="pin-view-subject" readonly style="flex:1;">
-        <button class="btn btn-ghost" id="btn-pin-copy-subject" style="flex-shrink:0; padding:8px 12px;">Copy subject</button>
+        <button class="btn btn-ghost" id="btn-pin-copy-subject" style="flex-shrink:0; padding:8px 12px;" data-i18n="b.copysubject">Copy subject</button>
       </div>
       <div id="pin-view-content" style="margin:12px 0;"></div>
       <div class="modal-actions" style="justify-content:flex-start; gap:10px; flex-wrap:wrap;">
-        <button class="btn btn-primary" id="btn-pin-download-pdf">Download PDF</button>
-        <button class="btn btn-ghost" id="btn-pin-copy">Copy for email</button>
-        <button class="btn btn-ghost" id="btn-pin-edit">Edit PIN</button>
+        <button class="btn btn-primary" id="btn-pin-download-pdf" data-i18n="b.dlpdf">Download PDF</button>
+        <button class="btn btn-ghost" id="btn-pin-copy" data-i18n="b.copyemail">Copy for email</button>
+        <button class="btn btn-ghost" id="btn-pin-edit" data-i18n="b.editpin">Edit PIN</button>
         <button class="btn btn-ghost" id="btn-pin-edit-investigation">Edit investigation report</button>
-        <button class="btn btn-ghost" id="btn-pin-download-cancel">Close</button>
+        <button class="btn btn-ghost" id="btn-pin-download-cancel" data-i18n="b.close">Close</button>
       </div>
     </div>
   </div>
@@ -346,7 +433,7 @@
       <p id="image-preview-caption" style="margin:10px 0 0; font-size:12.5px; color:var(--text-dim); text-align:center;"></p>
       <div class="modal-actions">
         <a id="image-preview-download" href="" download style="color:var(--amber); text-decoration:underline; font-size:12.5px; align-self:center; margin-right:auto;">Download</a>
-        <button class="btn btn-ghost" id="btn-image-preview-close">Close</button>
+        <button class="btn btn-ghost" id="btn-image-preview-close" data-i18n="b.close">Close</button>
       </div>
     </div>
   </div>
@@ -357,7 +444,7 @@
       <p style="margin-top:0;">Click the cell matching the worst case credible consequence. Based on the Shell HSSE &amp; SP RAM guide.</p>
       <div id="ram-picker-grid" style="overflow-x:auto;"></div>
       <div class="modal-actions">
-        <button class="btn btn-ghost" id="btn-ram-picker-cancel">Cancel</button>
+        <button class="btn btn-ghost" id="btn-ram-picker-cancel" data-i18n="b.cancel">Cancel</button>
       </div>
     </div>
   </div>
@@ -367,10 +454,10 @@
     <div class="view active" id="view-overview">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
         <div>
-          <h2 class="page-title">Overview</h2>
-          <p class="page-sub">Snapshot of incident data logged so far.</p>
+          <h2 class="page-title" data-i18n="t.overview">Overview</h2>
+          <p class="page-sub" data-i18n="s.overview">Snapshot of incident data logged so far.</p>
         </div>
-        <button class="btn btn-primary" id="btn-overview-log" style="flex-shrink:0;">Log incident</button>
+        <button class="btn btn-primary" id="btn-overview-log" style="flex-shrink:0;" data-i18n="b.log">Log incident</button>
       </div>
       <div class="grid grid-5" id="stat-cards"></div>
       <div style="margin-top:20px;">
@@ -393,7 +480,7 @@
     </div>
 
     <div class="view" id="view-log">
-      <h2 class="page-title">Log incident</h2>
+      <h2 class="page-title" data-i18n="t.log">Log incident</h2>
       <p class="page-sub">Enter the incident record. It's saved as soon as you submit. <span id="log-mode-label" style="color:var(--amber); font-weight:600;"></span></p>
       <div class="card" style="max-width:640px;">
         <div class="form-row">
@@ -492,7 +579,7 @@
     </div>
 
     <div class="view" id="view-register">
-      <h2 class="page-title">Register</h2>
+      <h2 class="page-title" data-i18n="t.register">Register</h2>
       <p class="page-sub">All logged incidents. <span id="register-count" style="color:var(--text); font-weight:600;"></span></p>
       <div class="filters">
         <select id="filt-contractor"><option value="">All contractors</option></select>
@@ -507,14 +594,14 @@
           <option value="contractor">Sort: Contractor</option>
         </select>
         <button class="btn btn-ghost" id="btn-sort-dir" title="Toggle ascending/descending">↓ Newest first</button>
-        <button class="btn btn-ghost" id="btn-export" style="margin-left:auto;">Download Excel</button>
+        <button class="btn btn-ghost" id="btn-export" style="margin-left:auto;" data-i18n="b.dlexcel">Download Excel</button>
       </div>
       <div id="register-list"></div>
     </div>
 
     <div class="view" id="view-actions">
-      <h2 class="page-title">Action items</h2>
-      <p class="page-sub">Every corrective action across all incidents in this project. Click a column header to sort.</p>
+      <h2 class="page-title" data-i18n="t.actions">Action items</h2>
+      <p class="page-sub" data-i18n="s.actions">Every corrective action across all incidents in this project. Click a column header to sort.</p>
       <div class="filters">
         <select id="actions-filt-status"><option value="">All statuses</option><option>Closed</option><option>Closed - Ongoing</option></select>
         <select id="actions-filt-contractor"><option value="">All contractors</option></select>
@@ -554,7 +641,7 @@
       <p class="page-sub">For <strong id="inv-eosm-slot"></strong> — <span id="inv-title-slot"></span></p>
       <div class="card" style="max-width:820px;">
         <div class="info-note"><span class="icon">!</span><span>The PIN details below are shown for reference so you don't have to re-enter them. To correct something in the PIN itself, go back to the Register and use Edit.</span></div>
-        <h5 style="margin:0 0 10px; font-family:'Oswald',sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;">1. Incident information &amp; summary (from PIN)</h5>
+        <h5 style="margin:0 0 10px; font-family:Jost, system-ui, Arial, sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;">1. Incident information &amp; summary (from PIN)</h5>
         <div id="inv-summary"></div>
 
         <div class="ram-block" style="margin-top:20px;">
@@ -699,27 +786,27 @@
         </div>
 
         <div style="margin-top:18px; display:flex; gap:10px;">
-          <button class="btn btn-primary" id="btn-inv-save">Save investigation</button>
-          <button class="btn btn-ghost" id="btn-inv-cancel">Cancel</button>
+          <button class="btn btn-primary" id="btn-inv-save" data-i18n="b.saveinv">Save investigation</button>
+          <button class="btn btn-ghost" id="btn-inv-cancel" data-i18n="b.cancel">Cancel</button>
         </div>
       </div>
     </div>
 
     <div class="view" id="view-detail">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+      <div class="detail-head" style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
         <div>
           <h2 class="page-title" id="detail-eosm-slot"></h2>
           <p class="page-sub" id="detail-title-slot"></p>
         </div>
         <div style="display:flex; gap:14px; align-items:center; flex-shrink:0; flex-wrap:wrap;">
           <a href="#" id="detail-back-link" style="color:var(--text-dim); font-size:12px; text-decoration:underline;">← Back to overview</a>
-          <a href="#" id="detail-drive-link" target="_blank" rel="noopener" class="btn btn-primary" style="padding:5px 12px; font-size:12px; text-decoration:none;">&#128193; Open Drive folder</a>
+          <a href="#" id="detail-drive-link" target="_blank" rel="noopener" class="btn btn-primary" style="padding:5px 12px; font-size:12px; text-decoration:none;">Open Drive folder</a>
           <a href="#" id="detail-pin-link" style="color:var(--amber); font-size:12px; text-decoration:underline;">PIN</a>
           <a href="#" id="detail-word-link" style="color:var(--amber); font-size:12px; text-decoration:underline;">Word Document</a>
           <a href="#" id="detail-pdf-link" style="color:var(--amber); font-size:12px; text-decoration:underline;">PDF</a>
           <a href="#" id="detail-edit-link" style="color:var(--amber); font-size:12px; text-decoration:underline;">Edit PIN</a>
           <a href="#" id="detail-edit-investigation-link" style="color:var(--amber); font-size:12px; text-decoration:underline;">Edit investigation report</a>
-          <a href="#" id="detail-delete-link" style="color:var(--red); font-size:12px; text-decoration:underline;">Delete</a>
+          <a href="#" id="detail-delete-link" style="color:#231f20; font-size:12px; text-decoration:underline;">Delete</a>
         </div>
       </div>
       <div class="card" style="max-width:680px;">
@@ -750,15 +837,15 @@
         </div>
         <div id="report-lang-note" style="font-size:12px; color:var(--text-faint); margin-bottom:10px; display:none;">Bahasa Indonesia text isn't written for this incident yet — the report will show English content with a note in place of the missing translation.</div>
         <div class="modal-actions">
-          <button class="btn btn-ghost" id="btn-report-lang-cancel">Cancel</button>
+          <button class="btn btn-ghost" id="btn-report-lang-cancel" data-i18n="b.cancel">Cancel</button>
           <button class="btn btn-primary" id="btn-report-lang-confirm">Generate</button>
         </div>
       </div>
     </div>
 
     <div class="view" id="view-trends">
-      <h2 class="page-title">Trends</h2>
-      <p class="page-sub">Patterns across everything logged.</p>
+      <h2 class="page-title" data-i18n="t.trends">Trends</h2>
+      <p class="page-sub" data-i18n="s.trends">Patterns across everything logged.</p>
       <div style="margin-bottom:16px;"><button class="btn btn-primary" id="btn-deepdive-ppt">Download Deep Dive PPT</button></div>
       <div class="chart-wrap"><h3>Incidents per quarter</h3>
         <div style="font-size:12px; color:var(--text-faint); margin:-4px 0 10px;">Stacked by incident type. Each incident counts once, under its highest category (LSR, then First Aid Case, Property Damage, Security, Near Miss). Hover a quarter for the full list; click an incident to open it. Records without a date (placeholders awaiting reports) are not plotted.</div>
@@ -773,7 +860,7 @@
     </div>
 
     <div class="view" id="view-lessons">
-      <h2 class="page-title">Lessons learned</h2>
+      <h2 class="page-title" data-i18n="t.lessons">Lessons learned</h2>
       <p class="page-sub">Generates a synthesized report across every incident on file — trends, root cause clusters, and recommendations.</p>
       <div class="card" style="margin-bottom:20px;" id="documented-lessons-card">
         <h5 style="margin-top:0;">Documented lessons learned</h5>
@@ -806,8 +893,8 @@
     </div>
 
     <div class="view" id="view-bowtie">
-      <h2 class="page-title">Bow-tie analysis</h2>
-      <p class="page-sub">Map threats and consequences either side of a top event, with the barriers in between.</p>
+      <h2 class="page-title" data-i18n="t.bowtie">Bow-tie analysis</h2>
+      <p class="page-sub" data-i18n="s.bowtie">Map threats and consequences either side of a top event, with the barriers in between.</p>
       <div class="card" style="max-width:720px;">
         <div class="info-note"><span class="icon">!</span><span>Hazard and top event give the diagram context — fill them in. At least one threat or consequence is required to generate the image; barriers under each are <strong>optional</strong> but recommended.</span></div>
         <label style="margin-top:0;">Hazard</label>
@@ -829,7 +916,7 @@
     </div>
 
     <div class="view" id="view-fishbone">
-      <h2 class="page-title">Fishbone analysis</h2>
+      <h2 class="page-title" data-i18n="t.fishbone">Fishbone analysis</h2>
       <p class="page-sub">Root cause categories (6M) feeding into an effect. List causes one per line in each category.</p>
       <div class="card" style="max-width:720px;">
         <div class="info-note"><span class="icon">!</span><span>Fill in the effect / problem statement, then add at least one cause under any of the six categories to generate the image. Categories with no causes listed are simply left off the diagram.</span></div>
@@ -856,8 +943,8 @@
     </div>
 
     <div class="view" id="view-fivewhy">
-      <h2 class="page-title">5 Whys analysis</h2>
-      <p class="page-sub">Chain of "why" questions drilling from the problem down to the root cause.</p>
+      <h2 class="page-title" data-i18n="t.fivewhy">5 Whys analysis</h2>
+      <p class="page-sub" data-i18n="s.fivewhy">Chain of "why" questions drilling from the problem down to the root cause.</p>
       <div class="card" style="max-width:640px;">
         <div class="info-note"><span class="icon">!</span><span>Fill in the problem statement and at least Why 1 to generate the image. Leave later Whys blank if the chain stops early.</span></div>
         <label style="margin-top:0;">Problem statement</label>
@@ -892,6 +979,27 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js"></script>
 <script>
+
+// ===== Language (EN / ID / MS) - interface labels; incident records stay in the language they were written =====
+const I18N = {"en": {"nav.overview": "Overview", "nav.register": "Register", "nav.actions": "Action items", "nav.trends": "Trends", "nav.lessons": "Lessons learned", "nav.bowtie": "Bow-tie", "nav.fishbone": "Fishbone", "nav.fivewhy": "5 Whys", "nav.analysis": "Analysis", "t.overview": "Overview", "t.log": "Log incident", "t.register": "Register", "t.actions": "Action items", "t.trends": "Trends", "t.lessons": "Lessons learned", "t.bowtie": "Bow-tie analysis", "t.fishbone": "Fishbone analysis", "t.fivewhy": "5 Whys analysis", "t.allprojects": "All projects", "s.overview": "Snapshot of incident data logged so far.", "s.actions": "Every corrective action across all incidents in this project. Click a column header to sort.", "s.trends": "Patterns across everything logged.", "s.bowtie": "Map threats and consequences either side of a top event, with the barriers in between.", "s.fivewhy": "Chain of \"why\" questions drilling from the problem down to the root cause.", "b.sync": "Sync to Sheets now", "b.exportall": "Download all data as Excel", "b.refresh": "Refresh", "b.cancel": "Cancel", "b.close": "Close", "b.continue": "Continue", "b.savechanges": "Save changes", "b.addproject": "Add project", "b.adddoc": "Add document", "b.copyemail": "Copy for email", "b.copysubject": "Copy subject", "b.dlpdf": "Download PDF", "b.editpin": "Edit PIN", "b.log": "Log incident", "b.delincident": "Delete incident", "b.delproject": "Delete project", "b.delall": "Delete everything", "b.saveinv": "Save investigation", "b.dlexcel": "Download Excel"}, "id": {"nav.overview": "Ringkasan", "nav.register": "Register", "nav.actions": "Tindakan", "nav.trends": "Tren", "nav.lessons": "Pelajaran", "nav.bowtie": "Bow-tie", "nav.fishbone": "Fishbone", "nav.fivewhy": "5 Mengapa", "nav.analysis": "Analisis", "t.overview": "Ringkasan", "t.log": "Catat insiden", "t.register": "Register", "t.actions": "Tindakan korektif", "t.trends": "Tren", "t.lessons": "Pelajaran yang dipetik", "t.bowtie": "Analisis bow-tie", "t.fishbone": "Analisis fishbone", "t.fivewhy": "Analisis 5 Mengapa", "t.allprojects": "Semua proyek", "s.overview": "Ringkasan data insiden yang telah dicatat.", "s.actions": "Semua tindakan korektif dari seluruh insiden di proyek ini. Klik judul kolom untuk mengurutkan.", "s.trends": "Pola dari semua insiden yang dicatat.", "s.bowtie": "Petakan ancaman dan konsekuensi di kedua sisi kejadian utama, beserta penghalang di antaranya.", "s.fivewhy": "Rangkaian pertanyaan \"mengapa\" dari masalah hingga akar penyebab.", "b.sync": "Sinkronkan ke Sheets", "b.exportall": "Unduh semua data (Excel)", "b.refresh": "Muat ulang", "b.cancel": "Batal", "b.close": "Tutup", "b.continue": "Lanjut", "b.savechanges": "Simpan perubahan", "b.addproject": "Tambah proyek", "b.adddoc": "Tambah dokumen", "b.copyemail": "Salin untuk email", "b.copysubject": "Salin subjek", "b.dlpdf": "Unduh PDF", "b.editpin": "Ubah PIN", "b.log": "Catat insiden", "b.delincident": "Hapus insiden", "b.delproject": "Hapus proyek", "b.delall": "Hapus semuanya", "b.saveinv": "Simpan investigasi", "b.dlexcel": "Unduh Excel"}, "ms": {"nav.overview": "Gambaran", "nav.register": "Daftar", "nav.actions": "Tindakan", "nav.trends": "Trend", "nav.lessons": "Pengajaran", "nav.bowtie": "Bow-tie", "nav.fishbone": "Fishbone", "nav.fivewhy": "5 Mengapa", "nav.analysis": "Analisis", "t.overview": "Gambaran", "t.log": "Rekod insiden", "t.register": "Daftar", "t.actions": "Tindakan pembetulan", "t.trends": "Trend", "t.lessons": "Pengajaran yang diperoleh", "t.bowtie": "Analisis bow-tie", "t.fishbone": "Analisis fishbone", "t.fivewhy": "Analisis 5 Mengapa", "t.allprojects": "Semua projek", "s.overview": "Ringkasan data insiden yang telah direkodkan.", "s.actions": "Semua tindakan pembetulan daripada setiap insiden dalam projek ini. Klik tajuk lajur untuk menyusun.", "s.trends": "Corak daripada semua insiden yang direkodkan.", "s.bowtie": "Petakan ancaman dan akibat di kedua-dua belah peristiwa utama, bersama penghalang di antaranya.", "s.fivewhy": "Rangkaian soalan \"mengapa\" daripada masalah hingga punca utama.", "b.sync": "Segerak ke Sheets", "b.exportall": "Muat turun semua data (Excel)", "b.refresh": "Muat semula", "b.cancel": "Batal", "b.close": "Tutup", "b.continue": "Teruskan", "b.savechanges": "Simpan perubahan", "b.addproject": "Tambah projek", "b.adddoc": "Tambah dokumen", "b.copyemail": "Salin untuk e-mel", "b.copysubject": "Salin subjek", "b.dlpdf": "Muat turun PDF", "b.editpin": "Ubah PIN", "b.log": "Rekod insiden", "b.delincident": "Padam insiden", "b.delproject": "Padam projek", "b.delall": "Padam semuanya", "b.saveinv": "Simpan siasatan", "b.dlexcel": "Muat turun Excel"}};
+let LANG = 'en';
+try{ const sv = localStorage.getItem('eco_lang'); if(sv && I18N[sv]) LANG = sv; }catch(e){}
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    const v = (I18N[LANG] && I18N[LANG][k]) || I18N.en[k];
+    if(v != null) el.textContent = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang === LANG));
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click', ()=>{
+  LANG = b.dataset.lang;
+  try{ localStorage.setItem('eco_lang', LANG); }catch(e){}
+  applyLang();
+}));
+applyLang();
+
 const CONTRACTORS = ['GSB','WEN','KKS','PBS','EcoOils','Other'];
 
 const TYPE_SUBTYPES = {
@@ -942,7 +1050,7 @@ function setTimeValue(value){
   document.getElementById('f-time-mm').value = /^\d{2}$/.test(parts[1]) ? parts[1] : '';
 }
 
-const SERIES = ['#4A9EDB','#F5A623','#4CAF6D','#E5484D','#9B7EDE','#8B9199'];
+const SERIES = ['#44a276','#ffc600','#231f20','#aaaaaa','#2f7d57','#6e6b6c'];
 
 const RAM_MATRIX = {
   0:['Low','Low','Low','Low','Low'],
@@ -952,7 +1060,7 @@ const RAM_MATRIX = {
   4:['Medium','High','High','Serious','Serious'],
   5:['Medium','High','Serious','Serious','Serious']
 };
-const RISK_COLORS = { Low:'#AED6F1', Medium:'#2471A3', High:'#F4D03F', Serious:'#E74C3C' };
+const RISK_COLORS = { Low:'#aaaaaa', Medium:'#44a276', High:'#ffc600', Serious:'#231f20' };
 const RISK_ORDER = ['Low','Medium','High','Serious'];
 const RAM_CATEGORIES = ['People','Assets','Environment','Reputation'];
 
@@ -7124,11 +7232,11 @@ function renderTypeBreakdown(){
   const ltif = '—';
 
   const cards = [
-    { label:'LSR', value: lsr, color:'#E5484D', key:'lsr' },
-    { label:'First Aid Case', value: fac, color:'#4CAF6D', key:'fac' },
-    { label:'Near Miss', value: nearMiss, color:'#F5A623', key:'nearMiss' },
-    { label:'Property Damage', value: propertyDamage, color:'#9B7FE8', key:'propertyDamage' },
-    { label:'Security', value: security, color:'#4AC9DB', key:'security' }
+    { label:'LSR', value: lsr, color:'#231f20', key:'lsr' },
+    { label:'First Aid Case', value: fac, color:'#ffc600', key:'fac' },
+    { label:'Near Miss', value: nearMiss, color:'#44a276', key:'nearMiss' },
+    { label:'Property Damage', value: propertyDamage, color:'#6e6b6c', key:'propertyDamage' },
+    { label:'Security', value: security, color:'#aaaaaa', key:'security' }
   ];
   cardsEl.innerHTML = cards.map((c,idx) => `
     <div class="card stat type-breakdown-hoverable" data-bp-key="${c.key}" data-bp-idx="${idx}">
@@ -7153,8 +7261,8 @@ function renderTypeBreakdown(){
   ];
   tableEl.innerHTML = rows.map((r,idx) => `
     <tr${idx>0 ? ' style="border-top:1px solid var(--border-soft);"' : ''}${r.key ? ` class="type-breakdown-hoverable" data-bp-key="${r.key}"` : ''}>
-      <td style="padding:9px 14px; ${r.value !== '—' && r.value > 0 ? 'border-left:2px solid var(--red);' : 'border-left:2px solid transparent;'}">${escapeHtml(r.label)}${r.note ? ` <span style="color:var(--text-faint); font-size:11px;" title="${escapeHtml(r.note)}">ⓘ</span>` : ''}</td>
-      <td style="padding:9px 14px; text-align:right; font-weight:600; ${r.value !== '—' && r.value > 0 ? 'color:var(--red);' : 'color:var(--text-dim);'}">${r.value === '—' ? '—' : r.value}</td>
+      <td style="padding:9px 14px; ${r.value !== '—' && r.value > 0 ? 'border-left:2px solid #231f20;' : 'border-left:2px solid transparent;'}">${escapeHtml(r.label)}${r.note ? ` <span style="color:var(--text-faint); font-size:11px;" title="${escapeHtml(r.note)}">ⓘ</span>` : ''}</td>
+      <td style="padding:9px 14px; text-align:right; font-weight:600; ${r.value !== '—' && r.value > 0 ? 'color:#231f20;' : 'color:var(--text-dim);'}">${r.value === '—' ? '—' : r.value}</td>
     </tr>
   `).join('');
 
@@ -7476,7 +7584,7 @@ function renderRegister(){
           <span class="status-pill">${i.status}</span>
           <a href="${driveUrlForRec(i).url}" target="_blank" rel="noopener" title="Open Drive folder — upload pictures and documents" style="color:var(--amber); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">&#128193; Drive</a>
           <a href="#" onclick="openPinDownloadModal('${i.id}'); return false;" style="color:var(--amber); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">PIN</a>
-          <a href="#" onclick="openDeleteIncidentModal('${i.id}'); return false;" style="color:var(--red); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">Delete</a>
+          <a href="#" onclick="openDeleteIncidentModal('${i.id}'); return false;" style="color:#231f20; text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">Delete</a>
         </div>
       </div>
       <p class="tag-desc">${escapeHtml(i.title || '—')}</p>
@@ -8342,7 +8450,7 @@ function formatTimelineHtml(text){
 function invSection(title, parts){
   const filled = parts.filter(Boolean);
   if(filled.length===0) return '';
-  return `<h5 style="margin:18px 0 8px; font-family:'Oswald',sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;">${escapeHtml(title)}</h5>` + filled.join('');
+  return `<h5 style="margin:18px 0 8px; font-family:Jost, system-ui, Arial, sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); font-weight:500;">${escapeHtml(title)}</h5>` + filled.join('');
 }
 function formatFimList(list){
   return (Array.isArray(list) && list.length) ? list.join('; ') : '';
@@ -8697,7 +8805,7 @@ function renderOverviewCharts(){
   const cLabels = Object.keys(byC);
   charts.chartOverviewContractor = new Chart(document.getElementById('chartOverviewContractor'), {
     type:'bar',
-    data:{ labels:cLabels, datasets:[{ data:cLabels.map(l=>byC[l]), backgroundColor:'#F5A623', borderRadius:4, maxBarThickness:36 }]},
+    data:{ labels:cLabels, datasets:[{ data:cLabels.map(l=>byC[l]), backgroundColor:'#44a276', borderRadius:0, maxBarThickness:36 }]},
     options:{ responsive:true, maintainAspectRatio:false,
       onClick:(evt,elements)=>{
         if(!elements.length) return;
@@ -8707,8 +8815,8 @@ function renderOverviewCharts(){
       onHover:(evt,elements)=>{ evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
       plugins:{legend:{display:false}},
       scales:{
-        x:{ ticks:{color:'#8B9199'}, grid:{display:false} },
-        y:{ ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'} }
+        x:{ ticks:{color:'#5f5b5c'}, grid:{display:false} },
+        y:{ ticks:{color:'#5f5b5c', precision:0}, grid:{color:'#e6e6e6'} }
       }
     }
   });
@@ -8717,7 +8825,7 @@ function renderOverviewCharts(){
   const sevLabels = RISK_ORDER.filter(s=>bySev[s]);
   charts.chartOverviewSeverity = new Chart(document.getElementById('chartOverviewSeverity'), {
     type:'doughnut',
-    data:{ labels:sevLabels, datasets:[{ data:sevLabels.map(l=>bySev[l]), backgroundColor:sevLabels.map(l=>RISK_COLORS[l]), borderColor:'#1C2024', borderWidth:2 }]},
+    data:{ labels:sevLabels, datasets:[{ data:sevLabels.map(l=>bySev[l]), backgroundColor:sevLabels.map(l=>RISK_COLORS[l]), borderColor:'#ffffff', borderWidth:2 }]},
     options:{ responsive:true, maintainAspectRatio:false,
       onClick:(evt,elements)=>{
         if(!elements.length) return;
@@ -8725,18 +8833,18 @@ function renderOverviewCharts(){
         goToRegister({ severity: label });
       },
       onHover:(evt,elements)=>{ evt.native.target.style.cursor = elements.length ? 'pointer' : 'default'; },
-      plugins:{ legend:{ position:'bottom', labels:{color:'#8B9199', boxWidth:10, font:{size:11}} } }
+      plugins:{ legend:{ position:'bottom', labels:{color:'#5f5b5c', boxWidth:10, font:{size:11}} } }
     }
   });
 }
 
 const QUARTER_CATS = [
-  { key:'lsr', label:'LSR Violation', color:'#E5484D', test: i => i.type === 'LSR Violation' || i.classification === 'LSR Violation' },
-  { key:'fac', label:'First Aid Case', color:'#4CAF6D', test: i => i.type === 'First Aid Case' || i.classification === 'First Aid Case' },
-  { key:'pd', label:'Property Damage', color:'#9B7FE8', test: i => i.type === 'Property Damage' || /-PD$/.test(i.eosm||'') },
-  { key:'sec', label:'Security', color:'#4AC9DB', test: i => i.type === 'Security Event' },
-  { key:'nm', label:'Near Miss', color:'#F5A623', test: i => i.type === 'Near Miss' },
-  { key:'other', label:'Other', color:'#8B9199', test: () => true }
+  { key:'lsr', label:'LSR Violation', color:'#231f20', test: i => i.type === 'LSR Violation' || i.classification === 'LSR Violation' },
+  { key:'fac', label:'First Aid Case', color:'#ffc600', test: i => i.type === 'First Aid Case' || i.classification === 'First Aid Case' },
+  { key:'pd', label:'Property Damage', color:'#6e6b6c', test: i => i.type === 'Property Damage' || /-PD$/.test(i.eosm||'') },
+  { key:'sec', label:'Security', color:'#aaaaaa', test: i => i.type === 'Security Event' },
+  { key:'nm', label:'Near Miss', color:'#44a276', test: i => i.type === 'Near Miss' },
+  { key:'other', label:'Other', color:'#dcdcdc', test: () => true }
 ];
 function quarterOf(dateStr){
   const m = /^(\d{4})-(\d{2})/.exec(dateStr||'');
@@ -8814,7 +8922,7 @@ const quarterTotalsPlugin = {
     const { ctx } = chart;
     const n = chart.data.labels.length;
     ctx.save();
-    ctx.fillStyle = '#E6E8EB'; ctx.font = '600 12px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillStyle = '#231f20'; ctx.font = '600 12px Jost, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
     for(let i=0;i<n;i++){
       let total = 0, topY = null, x = null;
       chart.data.datasets.forEach((ds,di)=>{
@@ -8847,7 +8955,7 @@ function renderQuarterlyChart(){
       interaction:{ mode:'index', intersect:false },
       layout:{ padding:{ top:18 } },
       plugins:{
-        legend:{ position:'bottom', labels:{ color:'#8B9199', boxWidth:10, font:{size:11} } },
+        legend:{ position:'bottom', labels:{ color:'#5f5b5c', boxWidth:10, font:{size:11} } },
         tooltip:{ enabled:false, external:(ctx)=>{
           const t = ctx.tooltip;
           if(!t || t.opacity===0){ hideQuarterTip(250); return; }
@@ -8857,8 +8965,8 @@ function renderQuarterlyChart(){
         } }
       },
       scales:{
-        x:{ stacked:true, ticks:{color:'#8B9199'}, grid:{display:false} },
-        y:{ stacked:true, beginAtZero:true, ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'}, title:{ display:true, text:'Incidents', color:'#8B9199' } }
+        x:{ stacked:true, ticks:{color:'#5f5b5c'}, grid:{display:false} },
+        y:{ stacked:true, beginAtZero:true, ticks:{color:'#5f5b5c', precision:0}, grid:{color:'#e6e6e6'}, title:{ display:true, text:'Incidents', color:'#5f5b5c' } }
       }
     }
   });
@@ -8877,10 +8985,10 @@ function renderTrendCharts(){
   const months = Object.keys(byMonth).sort();
   charts.chartMonthly = new Chart(document.getElementById('chartMonthly'), {
     type:'line',
-    data:{ labels:months, datasets:[{ data:months.map(m=>byMonth[m]), borderColor:'#F5A623', backgroundColor:'rgba(245,166,35,0.1)', fill:true, tension:0.25, pointRadius:4, pointBackgroundColor:'#F5A623' }]},
+    data:{ labels:months, datasets:[{ data:months.map(m=>byMonth[m]), borderColor:'#44a276', backgroundColor:'rgba(68,162,118,0.10)', fill:true, tension:0.25, pointRadius:4, pointBackgroundColor:'#F5A623' }]},
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{legend:{display:false}},
-      scales:{ x:{ticks:{color:'#8B9199'}, grid:{display:false}}, y:{ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'}} }
+      scales:{ x:{ticks:{color:'#5f5b5c'}, grid:{display:false}}, y:{ticks:{color:'#5f5b5c', precision:0}, grid:{color:'#e6e6e6'}} }
     }
   });
 
@@ -8890,7 +8998,7 @@ function renderTrendCharts(){
     type:'bar',
     data:{ labels:cLabels, datasets:[{ data:cLabels.map(l=>byC[l]), backgroundColor:cLabels.map((_,i)=>SERIES[i%SERIES.length]), borderRadius:4, maxBarThickness:32 }]},
     options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{ x:{ticks:{color:'#8B9199'}, grid:{display:false}}, y:{ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'}} } }
+      scales:{ x:{ticks:{color:'#5f5b5c'}, grid:{display:false}}, y:{ticks:{color:'#5f5b5c', precision:0}, grid:{color:'#e6e6e6'}} } }
   });
 
   const byT = countBy(incidents,'type');
@@ -8899,7 +9007,7 @@ function renderTrendCharts(){
     type:'bar',
     data:{ labels:tLabels, datasets:[{ data:tLabels.map(l=>byT[l]), backgroundColor:'#4A9EDB', borderRadius:4, maxBarThickness:24 }]},
     options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{ x:{ticks:{color:'#8B9199', precision:0}, grid:{color:'#2C3238'}}, y:{ticks:{color:'#8B9199'}, grid:{display:false}} } }
+      scales:{ x:{ticks:{color:'#5f5b5c', precision:0}, grid:{color:'#e6e6e6'}}, y:{ticks:{color:'#5f5b5c'}, grid:{display:false}} } }
   });
 }
 
@@ -9683,7 +9791,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.1.4';
+const APP_VERSION = '1.2.0';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
