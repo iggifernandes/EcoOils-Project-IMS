@@ -1348,13 +1348,19 @@ function activeProject(){
   return projects.find(p=>p.id===activeProjectId) || projects[0] || { id:'', name:'Untitled project', logo:'' };
 }
 
+let sheetSlow = false;   // set when the Sheet times out, so the rest of start-up skips it instead of waiting again
 async function kvGet(key){
   if(SHEETS_ENDPOINT){
+    if(sheetSlow) return null;
     try{
-      const res = await fetch(SHEETS_ENDPOINT + '?action=kvGet&key=' + encodeURIComponent(key));
+      const ctl = new AbortController();
+      const timer = setTimeout(()=>ctl.abort(), 5000);   // a slow Sheet must not block the page from opening
+      let res;
+      try{ res = await fetch(SHEETS_ENDPOINT + '?action=kvGet&key=' + encodeURIComponent(key), { signal: ctl.signal }); }
+      finally{ clearTimeout(timer); }
       const data = await res.json();
       return data && data.value != null ? data.value : null;
-    }catch(e){ return null; }
+    }catch(e){ if(e && e.name==='AbortError') sheetSlow = true; return null; }
   }
   try{
     const res = await window.storage.get(key, false);
@@ -1363,14 +1369,20 @@ async function kvGet(key){
 }
 async function kvSet(key, value){
   if(SHEETS_ENDPOINT){
+    if(sheetSlow) return false;
     try{
-      await fetch(SHEETS_ENDPOINT, {
-        method:'POST',
-        headers:{ 'Content-Type':'text/plain' },
-        body: JSON.stringify({ action:'kvSet', key, value })
-      });
+      const ctl = new AbortController();
+      const timer = setTimeout(()=>ctl.abort(), 6000);   // a slow Sheet must not block the page
+      try{
+        await fetch(SHEETS_ENDPOINT, {
+          method:'POST',
+          headers:{ 'Content-Type':'text/plain' },
+          body: JSON.stringify({ action:'kvSet', key, value }),
+          signal: ctl.signal
+        });
+      }finally{ clearTimeout(timer); }
       return true;
-    }catch(e){ return false; }
+    }catch(e){ if(e && e.name==='AbortError') sheetSlow = true; return false; }
   }
   try{ await window.storage.set(key, value, false); return true; }catch(e){ return false; }
 }
@@ -6986,7 +6998,12 @@ async function loadIncidents(){
   const key = 'incidents:' + activeProjectId;
   if(SHEETS_ENDPOINT){
     try{
-      const res = await fetch(SHEETS_ENDPOINT + '?action=list&project=' + encodeURIComponent(activeProjectId));
+      if(sheetSlow) throw new Error('skipped - the Sheet did not answer at start-up');
+      const ctl = new AbortController();
+      const timer = setTimeout(()=>ctl.abort(), 8000);   // never leave the page blank if the Sheet is slow
+      let res;
+      try{ res = await fetch(SHEETS_ENDPOINT + '?action=list&project=' + encodeURIComponent(activeProjectId), { signal: ctl.signal }); }
+      finally{ clearTimeout(timer); }
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
       if(!data || !Array.isArray(data.incidents)) throw new Error((data && data.error) || 'unexpected reply');
@@ -6995,7 +7012,7 @@ async function loadIncidents(){
     }catch(e){
       incidents = [];
       loadFailed = true;   // never write back after a failed load
-      toast('Could not reach the Google Sheet (' + (e.message||e) + ') - saving is switched off until it loads');
+      toast((e && e.name==='AbortError' ? 'The Google Sheet took too long to answer' : 'Could not reach the Google Sheet') + ' (' + (e.message||e) + ') - saving is switched off until it loads');
     }
   } else {
     try{
@@ -7090,7 +7107,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -7101,11 +7118,17 @@ async function saveIncidents(){
   if(SHEETS_ENDPOINT){
     if(loadFailed){ toast('Not saved - the register has not loaded from the Google Sheet. Reload the page first.'); return false; }
     try{
-      const res = await fetch(SHEETS_ENDPOINT, {
-        method:'POST',
-        headers:{ 'Content-Type':'text/plain' },
-        body: JSON.stringify({ action:'save', project:activeProjectId, incidents })
-      });
+      const ctl = new AbortController();
+      const timer = setTimeout(()=>ctl.abort(), 30000);
+      let res;
+      try{
+        res = await fetch(SHEETS_ENDPOINT, {
+          method:'POST',
+          headers:{ 'Content-Type':'text/plain' },
+          body: JSON.stringify({ action:'save', project:activeProjectId, incidents }),
+          signal: ctl.signal
+        });
+      }finally{ clearTimeout(timer); }
       if(!res.ok) throw new Error('HTTP ' + res.status);
       let reply = null;
       try{ reply = await res.json(); }catch(_){}
@@ -9840,7 +9863,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.2.1';
+const APP_VERSION = '1.2.2';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
@@ -9862,6 +9885,7 @@ document.getElementById('btn-refresh-app').addEventListener('click', async ()=>{
   const original = btn.textContent;
   btn.textContent = 'Refreshing…';
   btn.disabled = true;
+  sheetSlow = false;
   try{
     await loadProjects();
     await loadIncidents();
@@ -9877,6 +9901,7 @@ document.getElementById('btn-refresh-app').addEventListener('click', async ()=>{
 });
 
 (async function init(){
+  { const el = document.getElementById('app-last-refreshed'); if(el) el.textContent = 'Loading…'; }
   await loadProjects();
   await loadIncidents();
   localStorage.setItem('mentari-last-refreshed', new Date().toISOString());
