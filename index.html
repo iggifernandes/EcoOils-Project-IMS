@@ -5792,6 +5792,7 @@ const EOSM077_DATA = {
 };
 
 function backfillEosm078(){ return backfillByEosm('EOSM-078', EOSM078_DATA); }
+function backfillEosm079(){ return backfillByEosm('EOSM-079', EOSM079_DATA); }
 
 const EOSM078_DATA = {
   "eosm": "EOSM-078-GSB-LSR",
@@ -5859,6 +5860,184 @@ const EOSM078_DATA = {
   "status": "Investigating",
   "rootCause": "Not yet determined - investigation pending.",
   "corrective": "Immediate actions only: worker restricted from site, crew Stand-Down on 21 October 2026, information shared with all contractors. Corrective actions to be defined once the investigation is complete.",
+  "attachments": []
+};
+
+
+const EOSM079_DATA = {
+  "eosm": "EOSM-079-WEN-SEC",
+  "title": "Power Cable Cut and Stolen, DTP Area Ground Floor",
+  "classification": "Security Event",
+  "date": "2026-10-26",
+  "time": "07:50",
+  "location": "DTP Area, ground floor, Sei Mangkei, North Sumatra",
+  "contractor": "WEN",
+  "type": "Security Event",
+  "subtype": "Unsafe condition",
+  "activity": "Temporary storage of coiled power cable awaiting pulling; cable route not yet ready",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "On Monday 26 October 2026 at 07:50, the WEN supervisor inspecting the DTP ground-floor work area found that coiled power cable, stored there while its route was not yet ready for pulling, had been cut. About 10 m of cut cable was hanging and approximately 15 m had been removed, with insulation remnants left at the cut. WEN last recorded the cable intact on Saturday 24 October (time not recorded); no contractor was scheduled on Sunday, so the theft window is about 40 hours or more. The cable was not energized and nobody was injured. EcoOils was notified at 08:20 and the area was secured and the evidence photographed at 08:45. This is the fourth WEN copper or cable loss on the register (EOSM-031, 052, 055).",
+  "immediateActions": "1. Area secured and evidence documented by the WEN supervisor (08:45).\n2. Loss reported to EcoOils (08:20) and to the SOS Chief of Security for investigation.\n3. Remaining cables checked for further theft; evidence of earlier installations collected.\n4. Stand-down and socialization held at the toolbox meeting (WEN action 1, closed).\n5. WEN security instructed to patrol every afternoon before the shift change and hand over monitoring to SOS security (WEN action 3, continuing).\n6. Coordination with SOS on monitoring cable in theft-prone areas (WEN action 2, continuing).\n7. Additional lighting installed at the temporary DTP cable storage (WEN action 4, closed).",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 1,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 2,
+      "likelihood": "C"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "DTP Area, ground floor, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - P0, A1D, E0, R0 (WEN rating): loss of about 15 m of power cable awaiting pulling; the cable cannot reach its destination without a splice or replacement and must be insulation-tested before use. Potential - A2C (WEN rating): theft of larger quantities or of installed cable would delay DTP commissioning. Cost in Rp not yet stated. Re-assessment recommended: Reputation (fourth WEN theft) and the worst credible case (theft of installed or energized cable).",
+  "noInjury": true,
+  "investigationDetails": "Preliminary notification with the WEN contractor report dated 26 October 2026, revised by EcoOils HSSE (3-page corporate format). CCTV, gate-log, guard-roster and witness evidence is still outstanding.",
+  "investigationTeam": "PT WEN: Evam Yudi Prasetiyo (HSE Coordinator), Haeruddin Syam (Site Manager). SOS Chief of Security and EcoOils HSSE to be confirmed.",
+  "investigationDate": "2026-10-26",
+  "problemStatement": "Cable awaiting installation is expected to be kept secure and checked at an interval that matches how long the area stands empty. Instead, about 15 m of coiled cable lay unlocked and unfenced in a poorly lit ground-floor area and was cut and removed between Saturday 24 and Monday 26 October.",
+  "expectation": "Valuable cable is kept in locked or supervised storage, or delivered only when its route is ready, and every check is logged with a name and a time.",
+  "actualCondition": "Coiled cable was left in an open area under construction, with lighting only on overtime shifts and WEN security patrolling only in the afternoon before shift change. The last check on 24 October has no recorded time and no check followed on Sunday.",
+  "impactPotential": "Loss of cable, a splice and re-test before use, schedule delay, and a repeat of the earlier WEN thefts.",
+  "incidentSequence": "Saturday 24 October 2026: WEN inspected the site; cables intact, no rubbish, no contractor scheduled on Sunday (photos attached; time and inspector not recorded).\n26 October 2026:\n07:45 Work resumed after the general toolbox meeting.\n07:50 SPV inspected the work area and the coiled cable.\n08:00 SPV found a cut cable hanging, about 10 m.\n08:10 SPV contacted the WEN safety department.\n08:15 About 15 m of cable confirmed missing; insulation remnants found near the cut.\n08:20 SPV reported the loss to EcoOils.\n08:45 Area secured and evidence documented.",
+  "relatedFacts": "Source: WEN contractor report dated 26 October 2026, revised by EcoOils HSSE. (1) Incident number EOSM-079-WEN-SEC is the next in sequence after EOSM-078. (2) Related events: WEN copper or cable thefts EOSM-031, 052 and 055; at least seven cable or copper thefts are on the register across the contractors. (3) Not yet established: cable type, size and drum number; total coil length; number of cuts and the tool used; when the cable was delivered; who last saw it on Saturday and at what time; CCTV and gate-log review; SOS patrol log and guard roster for 24-26 October; material-exit and scrap-vendor checks; key holders and access; witness statements; police report; cost in Rp. (4) The SOS patrol of the DTP blind spot every 2 hours is proposed and has not been confirmed by SOS. (5) WEN's 'Failure to Follow Procedure' tick has been removed because no breached procedure is named.",
+  "supportingDocsStatus": "WEN report and appendix photos (location, 24 Oct condition, scrap near the location, internal meeting, investigation with SOS, added lighting, stand-down). No CCTV, gate logs or statements attached.",
+  "fiveWhys": [
+    "Why was the cable missing? - Someone cut about 15 m from the coil and removed it, leaving about 10 m hanging, with insulation remnants at the cut.",
+    "Why could they cut it? - The coil lay on the floor of an open ground-floor area, unlocked and unfenced and reachable from outside, with nobody assigned to it once work stopped.",
+    "Why was it lying there? - The cable route was not ready for pulling, so the cable waited in the area and no secured storage was provided for it.",
+    "Why did nobody see it for about 40 hours? - The area is a blind spot: dark except during overtime shifts, and outside WEN's afternoon-only security patrol and the SOS routine (SOS route and times to be verified).",
+    "Why was the area in nobody's routine? - No owner or standard exists for securing and checking high-value cable stored in unfinished areas outside working hours, and the actions after the earlier WEN thefts (EOSM-031, 052, 055) did not become area-level controls."
+  ],
+  "tripodFactors": [
+    "DF",
+    "PR",
+    "OR",
+    "HW"
+  ],
+  "tripodNotes": "**Defences (DF):** no lockable or supervised storage for cable; no after-hours check of stored materials.\n**Procedures (PR):** no standard for storing and inspecting valuable cable in unfinished areas; checks not logged with a time.\n**Organization (OR):** security ownership split between WEN and SOS, with no owner for the DTP blind spot; lessons from EOSM-031, 052 and 055 not applied site-wide.\n**Hardware (HW):** lighting available only on overtime shifts.\nThe tripod selection is provisional until the open evidence is closed.",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Theft resulting in loss of company property.",
+  "immediateCauseOther": "Unsafe condition: unlocked, unfenced stored cable; low lighting; no after-hours coverage. Unsafe act: cutting and removing company property (offender not identified). The 'Failure to Follow Procedure' tick in the WEN report was removed because no breached procedure is named.",
+  "recommendation": "Lock or cage the remaining cable, or deliver it only when the route is ready for pulling; sign a cable count every shift; inspect stored materials on Sundays and non-working periods on a named roster; keep DTP lighting on all night; control cable and scrap leaving site with a gate pass and a returned-length check; complete the investigation (CCTV, gate logs, guard roster, key holders, witnesses, police report); splice and insulation-test the cable before acceptance; ask SOS to patrol the DTP blind spot every 2 hours with a log (proposed, to be confirmed by SOS); and review copper-cable storage across all contractors.",
+  "correctiveActionsTable": [
+    {
+      "description": "Stand-down conducted to share lessons learned: controlling theft and the impact of asset loss is very important; all leaders to socialize and assist all workers. (WEN action 1)",
+      "lead": "Evam / Joko",
+      "dateIssued": "2026-10-26",
+      "targetDate": "",
+      "status": "Closed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Coordination with SOS on monitoring cable in areas prone to theft. (WEN action 2)",
+      "lead": "Evam",
+      "dateIssued": "2026-10-26",
+      "targetDate": "",
+      "status": "Ongoing",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Instruct WEN security to patrol every afternoon before the shift change on site and hand over monitoring duties to SOS security. (WEN action 3)",
+      "lead": "Joko",
+      "dateIssued": "2026-10-26",
+      "targetDate": "",
+      "status": "Ongoing",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Install additional lighting at the DTP temporary coiled-cable storage. (WEN action 4)",
+      "lead": "Yadi S",
+      "dateIssued": "2026-10-26",
+      "targetDate": "",
+      "status": "Closed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: SOS patrols the DTP blind-spot area every 2 hours, 24 hours a day, with a log or QR checkpoint record. To be confirmed by SOS.",
+      "lead": "SOS Chief of Security",
+      "dateIssued": "2026-10-28",
+      "targetDate": "",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: move the remaining cable into locked or caged storage, or deliver cable only when the route is ready; sign a cable count each shift.",
+      "lead": "WEN Site Manager / SPV",
+      "dateIssued": "2026-10-28",
+      "targetDate": "2026-10-29",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: Sunday and after-hours inspection roster for stored materials, with name and time on every check; keep DTP lighting on through the night.",
+      "lead": "WEN HSE Coordinator",
+      "dateIssued": "2026-10-28",
+      "targetDate": "2026-10-30",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: complete the investigation with CCTV, gate logs, guard roster, key holders, witness statements, police report decision and SOS findings.",
+      "lead": "WEN HSE with SOS",
+      "dateIssued": "2026-10-28",
+      "targetDate": "2026-10-30",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: gate pass and returned-length control for cable and scrap leaving site; splice and insulation-test the cable before acceptance.",
+      "lead": "WEN and SOS",
+      "dateIssued": "2026-10-28",
+      "targetDate": "2026-11-02",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: review how all contractors store copper cable and scrap.",
+      "lead": "EcoOils HSSE",
+      "dateIssued": "2026-10-28",
+      "targetDate": "2026-11-06",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    }
+  ],
+  "lessonsLearned": [
+    "Cable stored before its route is ready is a theft target; lock it up or deliver it just in time.",
+    "A check made only before shift change leaves about 16 hours each night and all of Sunday uncovered; coverage must match when the area is empty.",
+    "Lighting that exists only for overtime shifts leaves blind spots at the hours theft is most likely.",
+    "Without a logged last-seen time the theft window grows to 40 hours or more and CCTV and gate logs are hard to match; every check needs a name and a time.",
+    "Four WEN losses and at least seven cable or copper thefts site-wide show that fixing each theft separately does not work; controls must cover the whole site and be audited."
+  ],
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "Direct cause: unidentified person(s) cut and removed about 15 m of unsecured coiled cable from the DTP ground-floor area. Root cause (5-Why): no owner or standard exists for securing and checking stored high-value cable in unfinished areas outside working hours, so protection depended on whoever was present; the actions after the earlier WEN thefts did not become area-level controls. Contributing: lighting only on overtime shifts, afternoon-only security patrol, no logged last-seen time.",
+  "corrective": "WEN actions: stand-down held, additional lighting installed, SOS coordination and afternoon security patrol with handover to SOS continuing. Proposed by EcoOils HSSE: locked storage, per-shift cable count, after-hours roster, SOS 2-hourly patrol (to be confirmed), gate-pass control, completion of the investigation and a review across all contractors.",
   "attachments": []
 };
 
@@ -7097,6 +7276,7 @@ async function loadIncidents(){
   const changed76 = backfillEosm076();
   const changed77 = backfillEosm077();
   const changed78 = backfillEosm078();
+  const changed79 = backfillEosm079();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -7115,7 +7295,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -8691,7 +8871,8 @@ const DRIVE_FOLDER_IDS = {
   '075':'1O4NJGJEXmk9t_FfI8NTpjS5pXLLLMSky',
   '076':'1xVXPiGvh-FGMDOaVnnzWF3Cw6bCMI8TD',
   '077':'1zK4qLYcxPegs5cedX9yQreZAAKe5gr-Z',
-  '078':'1vK3YwuPLpEHULEIc1YDOzm10j97BH97Y'
+  '078':'1vK3YwuPLpEHULEIc1YDOzm10j97BH97Y',
+  '079':'1itbXZXGCRsQuQw0W5LXQ208ehHTxmgdw'
 };
 function driveUrlForRec(rec){
   const mm = /^EOSM-(\d+)/i.exec((rec && rec.eosm) || '');
@@ -9871,7 +10052,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.2.3';
+const APP_VERSION = '1.2.4';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
