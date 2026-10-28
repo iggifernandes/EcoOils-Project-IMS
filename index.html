@@ -5792,7 +5792,14 @@ const EOSM077_DATA = {
 };
 
 function backfillEosm078(){ return backfillByEosm('EOSM-078', EOSM078_DATA); }
-function backfillEosm079(){ return backfillByEosm('EOSM-079', EOSM079_DATA); }
+function backfillEosm079(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-079-WEN-SEC') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-079', EOSM079_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-079-WEN-SEC'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
 
 const EOSM078_DATA = {
   "eosm": "EOSM-078-GSB-LSR",
@@ -6038,6 +6045,15 @@ const EOSM079_DATA = {
   "status": "Investigating",
   "rootCause": "Direct cause: unidentified person(s) cut and removed about 15 m of unsecured coiled cable from the DTP ground-floor area. Root cause (5-Why): no owner or standard exists for securing and checking stored high-value cable in unfinished areas outside working hours, so protection depended on whoever was present; the actions after the earlier WEN thefts did not become area-level controls. Contributing: lighting only on overtime shifts, afternoon-only security patrol, no logged last-seen time.",
   "corrective": "WEN actions: stand-down held, additional lighting installed, SOS coordination and afternoon security patrol with handover to SOS continuing. Proposed by EcoOils HSSE: locked storage, per-shift cable count, after-hours roster, SOS 2-hourly patrol (to be confirmed), gate-pass control, completion of the investigation and a review across all contractors.",
+  "earlyLearnings": {
+    "whatHappened": "Power cable that was coiled and waiting to be pulled was left in an open ground-floor area while its route was not ready. Over a weekend, someone cut it and took about 15 m. A further 10 m was found hanging, and insulation remnants were left at the cut. The cable was not energized and nobody was hurt.",
+    "earlyFindings": "The cable was lying on the floor, unlocked and unfenced, in an area with no one assigned to it after work stopped.\nThe area is poorly lit; lighting was only available during overtime shifts.\nThe security patrol for the area took place only in the afternoon before shift change, so about 16 hours each night and all of Sunday had no check.\nThe last check before the theft was recorded without a time, so the theft window is 40 hours or more.\nNo one owns the security of stored cable in unfinished areas outside working hours.\nThis is the fourth cable or copper theft by the same contractor; earlier fixes were not applied across the site.\nStill to be established: CCTV and gate logs, guard roster, who had access, witness statements.",
+    "keyLearnings": "Do not leave cable lying in open areas. Lock it up, or deliver it only when its route is ready.\nCount stored cable every shift and sign the count with your name and the time.\nA check only before shift change leaves the area uncovered all night and all weekend. Match checks to when the area is empty.\nIf an area is dark, light it all night, not only during overtime.\nCable and scrap leave site only with a gate pass and a returned-length check.\nSee something cut, missing or out of place? Report it to your supervisor and security at once.",
+    "immediateActions": "Area secured and evidence photographed.\nLoss reported to EcoOils and to the SOS Chief of Security.\nRemaining cables checked for further theft.\nStand-down held with the crew at the toolbox meeting.\nExtra lighting installed at the cable storage.\nWEN security patrols every afternoon before shift change and hands over monitoring to SOS security.\nCoordination with SOS on monitoring cable in theft-prone areas continues.",
+    "lsrRule": "Not applicable. This is a security event; no Life Saving Rule was involved.",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": "To be confirmed (WEN held its stand-down at the toolbox meeting)"
+  },
   "attachments": []
 };
 
@@ -10052,7 +10068,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.2.4';
+const APP_VERSION = '1.2.5';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
