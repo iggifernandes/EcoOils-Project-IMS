@@ -5878,12 +5878,33 @@ const EOSM077_DATA = {
 };
 
 function backfillEosm078(){ return backfillByEosm('EOSM-078', EOSM078_DATA); }
+function migrateEosm080Kks(){
+  // 2 Nov 2026 renumbering: the KKS dropped-pipe near miss moved from 080 to 082
+  incidents.forEach(r => { if(/^EOSM-080-KKS/i.test((r.eosm||'').trim())) r.eosm = 'EOSM-082-KKS-NM'; });
+}
 function backfillEosm080(){
+  migrateEosm080Kks();
   // keep early learnings the user has edited and saved; seed them only once
-  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-080-KKS-NM') : null;
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-080-WEN-PD') : null;
   const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
   const r = backfillByEosm('EOSM-080', EOSM080_DATA);
-  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-080-KKS-NM'); if(rec2) rec2.earlyLearnings = kept; }
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-080-WEN-PD'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
+function backfillEosm081(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-081-WEN-PD') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-081', EOSM081_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-081-WEN-PD'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
+function backfillEosm082(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-082-KKS-NM') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-082', EOSM082_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-082-KKS-NM'); if(rec2) rec2.earlyLearnings = kept; }
   return r;
 }
 function backfillEosm079(){
@@ -6152,8 +6173,8 @@ const EOSM079_DATA = {
 };
 
 
-const EOSM080_DATA = {
-  "eosm": "EOSM-080-KKS-NM",
+const EOSM082_DATA = {
+  "eosm": "EOSM-082-KKS-NM",
   "title": "Dropped 6 m Scaffold Pipe During Dismantling, PTU Area",
   "classification": "Near Miss",
   "date": "2026-10-31",
@@ -6203,7 +6224,7 @@ const EOSM080_DATA = {
   "actualCondition": "A 6 m pipe was passed by hand at Elevation +13.000 during dismantling. There was no drop-control line, the scaffolders were not coordinated, and the pipe fell to ground level inside the barricaded exclusion zone.",
   "impactPotential": "A 6 m steel pipe falling from about 13 m could kill or permanently disable anyone struck.",
   "incidentSequence": "31 October 2026:\n15:50 Scaffolders were dismantling scaffold material (6 m pipes) at the PTU Area, Elevation +13.000, and hand-transferring it at height.\n(During the activity) A miscommunication occurred between the scaffolders making the handover.\n(Event) Grip on a 6 m pipe was lost and the pipe fell from Elevation +13.000 to the ground floor.\n(Outcome) The pipe landed inside the barricaded exclusion zone monitored by the Scaffolding Foreman. No person or equipment was struck.",
-  "relatedFacts": "Recorded as received; points not stated or conflicting in the source are listed rather than assumed. (1) Contractor: the notification says 'Scaffolding Team' without naming the contractor; KKS was confirmed by the HSSE Manager. (2) Date and time: the header of the notification reads 'Saturday, 31 October 2025 / 5:50 P.M', while the body reads 31 October 2026 at 15:50 WIB. 31 October 2026 is a Saturday, so 2025 is a typing error; the time conflict (17:50 or 15:50) is unresolved and the body time 15:50 is used; to be confirmed. (3) Elevation: the header reads 'PTU EL.10000' and the body reads 'Elevation +13.000'; the body value is used; to be confirmed. (4) The notification marks the event High Potential but gives no RAM rating; P4B is proposed in this register. (5) Not stated: the scaffolders' names, whether a permit was in place, whether the pipe was inside the tagged scaffold area, how far the pipe fell versus the exclusion zone boundary, and what stopped work afterwards. (6) Similar KKS drops: EOSM-041 (Dropped Scaffolding Clamp) and EOSM-045 (Dropped Tool from Scaffold); to be reviewed for a repeated pattern.",
+  "relatedFacts": "Recorded as received; points not stated or conflicting in the source are listed rather than assumed. (1) Contractor: the notification says 'Scaffolding Team' without naming the contractor; KKS was confirmed by the HSSE Manager. (2) Date and time: the header of the notification reads 'Saturday, 31 October 2025 / 5:50 P.M', while the body reads 31 October 2026 at 15:50 WIB. 31 October 2026 is a Saturday, so 2025 is a typing error; the time conflict (17:50 or 15:50) is unresolved and the body time 15:50 is used; to be confirmed. (3) Elevation: the header reads 'PTU EL.10000' and the body reads 'Elevation +13.000'; the body value is used; to be confirmed. (4) The notification marks the event High Potential but gives no RAM rating; P4B is proposed in this register. (5) Not stated: the scaffolders' names, whether a permit was in place, whether the pipe was inside the tagged scaffold area, how far the pipe fell versus the exclusion zone boundary, and what stopped work afterwards. (6) Incident number: EOSM-082-KKS-NM, renumbered from 080 in date order on 2 November 2026. (7) Similar KKS drops: EOSM-041 (Dropped Scaffolding Clamp) and EOSM-045 (Dropped Tool from Scaffold); to be reviewed for a repeated pattern.",
   "supportingDocsStatus": "PIN text only. No photographs, permit copy or statements are attached.",
   "fiveWhys": [],
   "tripodFactors": [
@@ -6234,6 +6255,284 @@ const EOSM080_DATA = {
   "status": "Investigating",
   "rootCause": "Preliminary, from the contractor: direct cause is failed verbal coordination during hand transfer of a 6 m pipe at height, with no tethering or drop-control line. Underlying: the transfer method at height had not integrated drop-prevention standards for long items during dismantling, and there are no standard verbal or visual signals for handovers. Not final.",
   "corrective": "Immediate: exclusion zone barricaded and guarded by the Scaffolding Foreman. Corrective actions to be defined once the investigation is complete.",
+  "attachments": []
+};
+
+
+const EOSM080_DATA = {
+  "eosm": "EOSM-080-WEN-PD",
+  "title": "Damaged Lightning Arrester (Horizontal Discharge Pipes), Silo Area",
+  "classification": "Property Damage",
+  "date": "2026-10-29",
+  "time": "15:00",
+  "location": "Silo Area, top of tank, Sei Mangkei, North Sumatra",
+  "contractor": "WEN",
+  "type": "Property Damage",
+  "subtype": "Unsafe condition",
+  "activity": "Lifting and erection of pipe near the Silo tank top where permanent lightning protection is installed",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "On 29 October 2026 a lightning arrester at the top of the Silo tank (serial number 222931) was found with two broken horizontal discharge pipes. At 14:45 an employee of PT Gerbang (GSB) reported that a lightning rod had broken the previous day after being struck by a pipe being lifted. At 14:50 the QC and HSE checked the top elevation and at 15:00 found the two broken horizontal discharge pipes. According to the statement of the workers who found them, which has no supporting evidence, the damage was caused by a pipe lifted by PT Kokoh (KKS). At 15:20 the investigation was suspended for lack of valid evidence and the broken item was secured for repair. No injury. The cause and the party responsible are not established.",
+  "immediateActions": "1. Area top elevation checked by QC and HSE.\n2. Broken item secured for repair.\n3. Incident reported to the team for documentation (15:30).\n4. Investigation started; evidence from previous installations collected and a work report compiled. Investigation suspended at 15:20 for lack of valid evidence.",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 2,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 2,
+      "likelihood": "A"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "Silo Area, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - P0, A2A, C0, E0 (WEN rating): damage to the horizontal discharge section of a permanently installed lightning arrester; repair and a continuity check are needed before the protection can be relied on. Potential - A2A as stated in the WEN rating table (the narrative column reads A2C; to be clarified). An unrepaired or untested arrester leaves the Silo tank without lightning protection.",
+  "noInjury": true,
+  "investigationDetails": "Contractor report by WEN dated 31 October 2026 (investigation date 30 October 2026). The report states that the investigation yielded no conclusive evidence.",
+  "investigationTeam": "PT WEN: Evam, Mahadi, Darsono (per the report). EcoOils HSSE to be confirmed.",
+  "investigationDate": "2026-10-30",
+  "problemStatement": "Permanently installed lightning protection is expected to stay intact through construction. Instead, the horizontal discharge pipes of the Silo lightning arrester were broken, suspected to have been struck by a lifted pipe, and the damage was not reported until the day after it is said to have happened.",
+  "expectation": "Existing permanent installations on the tank are identified before lifting, a clearance is set between the load path and those installations, and damage is reported immediately.",
+  "actualCondition": "Two horizontal discharge pipes of the arrester (serial number 222931) were found broken. The reported cause (a pipe being lifted) is not confirmed by evidence and the party is not identified.",
+  "impactPotential": "Loss of lightning protection at the Silo tank until repaired and tested; repair cost and delay.",
+  "incidentSequence": "28 October 2026 (reported): a lifted pipe is said to have struck the lightning rod.\n29 October 2026:\n14:45 An employee of PT Gerbang (GSB) reported that a lightning rod had broken the previous day after being struck by a pipe being lifted.\n14:50 QC and HSE checked the top elevation of the Silo to confirm.\n15:00 Two broken horizontal discharge pipes were found by gate workers; by their statement (no evidence) a pipe lifted by PT Kokoh (KKS) damaged them.\n15:20 Investigation suspended for lack of valid evidence; the broken item was secured for repair.\n15:30 Incident reported to the team for documentation.",
+  "relatedFacts": "Source: WEN contractor report dated 31 October 2026. (1) Contractor: WEN is the reporting contractor and is used for the ID; the damage is attributed by witnesses to a KKS lift, which is not verified, so the responsible contractor is open. (2) The damage is said to have happened on 28 October but was found and reported on 29 October; the date of the incident is therefore uncertain and the next-day reporting is itself a finding. (3) The report calls the finders 'gate workers' and the reporter 'an employee of PT Gerbang'; the exact people and companies are to be confirmed. (4) No lift plan, rigging record, crane or operator, or witness statements are attached. (5) The WEN actual and potential ratings are both A2A while the narrative reads A2C; to be clarified. (6) The report's 5-Why chain is built on a suspicion; it should be redone once evidence is found. (7) No immediate causes are selected; the 'Not Applicable' entries are to be reviewed. (8) The location field of the report reads 'Silo Area'; the elevation is the top of the tank. (9) Incident number: EOSM-080-WEN-PD, renumbered in date order on 2 November 2026 (the KKS dropped-pipe near miss moved from 080 to 082).",
+  "supportingDocsStatus": "WEN report with appendix photos (arrester serial number, broken arrester, location, broken discharge pipes). No lift plan, statements or CCTV attached.",
+  "fiveWhys": [
+    "Why was the lightning arrester damaged? - It is suspected to have been struck by a pipe during lifting and erection near the top of the Silo tank. (Not proven.)",
+    "Why did the pipe hit it? - The path of the lifted pipe crossed the position of the arrester at the top of the tank.",
+    "Why was the clash not avoided? - Clearance between the lifted material and the existing installation had not been considered.",
+    "Why was the clearance not considered? - Existing installations in the lifting area were not identified in enough detail before the work started.",
+    "Why were they not identified? - The lifting planning did not address the effect of lifted material on permanent installations around the work area."
+  ],
+  "tripodFactors": [
+    "PR",
+    "CO",
+    "OR"
+  ],
+  "tripodNotes": "Provisional, from the WEN report; to be redone when evidence is available.\n**Procedures (PR):** lifting plans do not identify permanent installations on the tank top or set a clearance.\n**Communication (CO):** coordination between the lifting team and the party responsible for the installed arrester was not effective; the damage was reported the next day.\n**Organization (OR):** supervision of material movement during lifts needs improvement.",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "Suspected (not proven): a lifted pipe struck the lightning arrester. No unsafe act is established in the report.",
+  "recommendation": "Close the evidence gap first: statements from the lifting crew, rigger, crane operator and PT Gerbang reporter, the lift plan and permit for 28 October, and CCTV if any. Then: repair and test continuity of the arrester before it is relied on; add permanent installations and a clearance to the lift plan and LMRA for work at tank tops; mark and protect lightning protection and similar fragile installations; require damage to be reported at once; and share the lesson with all contractors.",
+  "correctiveActionsTable": [
+    {
+      "description": "Meeting and coordination with management teams to determine next steps, mitigation and ongoing preventive measures. (WEN action 1)",
+      "lead": "JOKO",
+      "dateIssued": "2026-10-30",
+      "targetDate": "2026-10-30",
+      "status": "",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Verify the continuity and functionality of the lightning protection system after repair. (WEN action 2)",
+      "lead": "Electrical QC Team",
+      "dateIssued": "2026-10-30",
+      "targetDate": "2026-10-31",
+      "status": "",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Awareness campaign for all employees on maintaining installed assets and not taking shortcuts. (WEN action 3)",
+      "lead": "SPV & HSE / other contractors",
+      "dateIssued": "2026-10-30",
+      "targetDate": "",
+      "status": "Ongoing",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: complete the investigation: statements from the crew, rigger, operator and reporter, plus the 28 October lift plan, permit and any CCTV; confirm which contractor performed the lift.",
+      "lead": "WEN HSE with EcoOils HSSE",
+      "dateIssued": "2026-11-02",
+      "targetDate": "2026-11-06",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: add permanent installations at the tank top and a minimum clearance to the lift plan and LMRA for every lift near existing equipment; mark fragile equipment with visible protection.",
+      "lead": "Contractors' lifting supervisors; EcoOils HSSE to verify",
+      "dateIssued": "2026-11-02",
+      "targetDate": "2026-11-09",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    }
+  ],
+  "lessonsLearned": [
+    "A lift plan must show the permanent installations near the load path, including equipment on top of tanks, and set a clearance.",
+    "Check the area above and around the load before the lift, and stop if the path is not clear.",
+    "Report any strike or damage at once. A day's delay cost the evidence in this case."
+  ],
+  "earlyLearnings": {
+    "whatHappened": "The horizontal discharge pipes of a lightning arrester at the top of the Silo tank were found broken. It is suspected that a pipe being lifted nearby struck it the day before, but no evidence has been found and the party is not identified. The item has been secured for repair.",
+    "earlyFindings": "The damage was said to have happened the day before it was reported.\nThe cause (a lifted pipe) rests on a statement without evidence.\nThe lift plan did not show the permanent installations at the tank top or a clearance.\nCoordination between the lifting team and the owner of the installed arrester was not effective.\nThe lightning protection must be repaired and its continuity tested before it is relied on.\nStill to be established: who lifted, the lift plan and permit, witness statements, and CCTV.",
+    "keyLearnings": "Before any lift, look for what is above and around the load path, especially on tank tops.\nSet a clearance and brief it at the lift.\nIf you touch or damage any installed equipment, report it at once, even if nobody saw it.\nProtect or mark fragile installed equipment.",
+    "immediateActions": "Top elevation checked by QC and HSE.\nBroken item secured for repair.\nIncident reported to the team.\nInvestigation started and suspended for lack of evidence.\nContinuity of the lightning protection to be verified after repair.",
+    "lsrRule": "Not applicable. Confirm whether Safe Mechanical Lifting applies once the lift is identified.",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": "To be confirmed"
+  },
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "Preliminary and unproven: a lifted pipe is suspected to have struck the arrester because the lift plan did not identify permanent installations at the tank top or set a clearance, and coordination with the owner of those installations was weak. The investigation was suspended for lack of evidence.",
+  "corrective": "WEN actions: management meeting, electrical QC verification of the lightning protection after repair, awareness campaign. Proposed by EcoOils HSSE: complete the investigation, and add installations and clearance to lift plans and LMRA.",
+  "attachments": []
+};
+
+const EOSM081_DATA = {
+  "eosm": "EOSM-081-WEN-PD",
+  "title": "Damaged Temperature Gauges, FFA Plant Elevation +10.000",
+  "classification": "Property Damage",
+  "date": "2026-10-30",
+  "time": "15:30",
+  "location": "FFA Plant, Elevation +10.000, Sei Mangkei, North Sumatra",
+  "contractor": "WEN",
+  "type": "Property Damage",
+  "subtype": "Unsafe act",
+  "activity": "Supervisor patrol and survey of the cable tray route; other trades working near permanently installed instruments",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "On 30 October 2026 at 15:25 a WEN supervisor surveying the cable-tray route found three permanently installed temperature gauges at the FFA Plant, Elevation +10.000 (tag TG-12C1-1 given in the report), with a broken instrument and a cover that would not close. It is suspected that the gauges were damaged by another party's work activities, having been used as a foothold. The instrument team and the EcoOils representative (Pak Ariel) were informed at 15:35, the incident was reported to the team at 15:40, and at 15:50 the damaged equipment was removed and secured at the site office. No injury. The party that caused the damage is not identified.",
+  "immediateActions": "1. Instrument team and the EcoOils representative informed for a short immediate investigation (15:35).\n2. Incident reported to the team for documentation (15:40).\n3. Damaged equipment removed and secured at the site office (15:50).\n4. Area investigated; evidence from previous installations collected and a work report compiled.\n5. Same equipment inspected across the area for other damage.",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 4,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 4,
+      "likelihood": "A"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "FFA Plant, Elevation +10.000, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - P0, A4A, C0, E0 (WEN rating): damage to three permanently installed temperature gauges (tag TG-12C1-1 given). Potential - A4A (WEN rating): installed gauges are easily damaged and can disrupt facility operations. The A4 rating looks high for three gauges and is to be re-assessed against the repair or replacement cost.",
+  "noInjury": true,
+  "investigationDetails": "Contractor report by WEN dated 31 October 2026 (investigation date 30 October 2026). The damage was found by the WEN supervisor; the responsible party is not identified.",
+  "investigationTeam": "PT WEN: Evam, Mahadi, Darsono (per the report). EcoOils HSSE to be confirmed.",
+  "investigationDate": "2026-10-30",
+  "problemStatement": "Permanent instruments are expected to stay intact after installation. Instead, three temperature gauges were damaged, suspected to have been used as a foothold by another party's workers.",
+  "expectation": "Installed instruments are protected and not used for access. Workers use scaffold or ladders, and the work area is checked for fragile equipment before the work starts.",
+  "actualCondition": "Three temperature gauges were found damaged, one cover not closing, at Elevation +10.000. The damaged equipment was removed to the site office.",
+  "impactPotential": "Loss of instruments, repair or replacement cost, commissioning delay, and disruption to facility operation.",
+  "incidentSequence": "30 October 2026:\n15:20 The supervisor team patrolled and surveyed the route for installing the cable tray at PTU.\n15:25 The team found a broken instrument (temperature gauge) at Elevation +10.000, FFA Plant.\n15:35 The supervisor found the gauge cover not closing properly and damaged; informed the instrument team and the EcoOils representative (Pak Ariel) for a short immediate investigation.\n15:40 Incident reported to the team for documentation and subsequent investigation.\n15:50 The damaged equipment was removed and secured at the site office.",
+  "relatedFacts": "Source: WEN contractor report dated 31 October 2026. (1) The report says the cause is 'suspected' (use as a foothold); nothing identifies who did it. (2) The report gives the area as FFA Plant, while the timeline says the cable-tray survey was at PTU; the actual location is to be confirmed. (3) The header time is 15:30 and the discovery is at 15:25; the discovery time is shown in the sequence. (4) The report says three gauges were damaged but gives one tag number (TG-12C1-1); the other tags are to be confirmed. (5) The A4A rating for three gauges is to be re-assessed. (6) WEN's root causes are about general awareness; no evidence is attached to show who stood on the gauges. (7) Incident number: EOSM-081-WEN-PD, renumbered in date order on 2 November 2026.",
+  "supportingDocsStatus": "WEN report with appendix photos (broken gauge and location). No PTW, scaffold inspection or statements attached.",
+  "fiveWhys": [
+    "Why were the gauges damaged? - They are suspected to have been stepped on or used as a foothold during work by others.",
+    "Why were they used as a foothold? - Workers did not consider the surroundings and took a shortcut to reach the work position.",
+    "Why did they not look at the surroundings? - They focused only on their task and did not notice that the equipment was fragile.",
+    "Why did they not care about fragile equipment? - They assumed the work would not affect the area, and awareness of property damage had not been communicated.",
+    "Why had it not been communicated? - There was no awareness campaign at toolbox meetings for all subcontractor workers about not stepping on equipment or using it for access. Also not stated: whether a safe access (scaffold or ladder) was available at the point of work."
+  ],
+  "tripodFactors": [
+    "PR",
+    "CO",
+    "WP"
+  ],
+  "tripodNotes": "Provisional, from the WEN report.\n**Procedures (PR):** no last-minute risk assessment for fragile installed equipment before work.\n**Communication (CO):** property damage awareness was not communicated at toolbox meetings.\n**Work Planning (WP):** limited space, busy site and frequent scaffold erection and dismantling push crews to shortcuts.",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "Suspected unsafe act: using installed instruments as a foothold or shortcut for access (not proven). Unsafe condition: fragile instruments exposed at the work location without protective covers.",
+  "recommendation": "Identify who worked at that level, using permits, scaffold and crew records. Inspect all installed instruments and fit longer protective covers that fully enclose fragile components and make them easy to see. Add 'fragile installed equipment' to the last-minute risk assessment. Provide safe access (scaffold or ladder) at every work position, and run an awareness campaign at toolbox meetings for all contractors.",
+  "correctiveActionsTable": [
+    {
+      "description": "Meeting and coordination with management teams to determine next steps and mitigation measures. (WEN action 1)",
+      "lead": "JOKO",
+      "dateIssued": "2026-10-30",
+      "targetDate": "2026-10-30",
+      "status": "",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Inspect other equipment and instruments and fit longer protective covers that fully enclose the gauges, especially on components prone to damage, so that the equipment is easy to recognise. (WEN action 2)",
+      "lead": "Koeswanto",
+      "dateIssued": "2026-10-30",
+      "targetDate": "",
+      "status": "Ongoing",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Awareness campaign for all employees on maintaining installed assets and not taking shortcuts. (WEN action 3)",
+      "lead": "SPV & HSE / other contractors",
+      "dateIssued": "2026-10-30",
+      "targetDate": "",
+      "status": "Ongoing",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: identify who worked at Elevation +10.000 on 29-30 October from permits, scaffold tags and crew records, and complete the investigation.",
+      "lead": "WEN HSE with EcoOils HSSE",
+      "dateIssued": "2026-11-02",
+      "targetDate": "2026-11-06",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: add 'fragile installed equipment in the work area' to the last-minute risk assessment, and provide safe access at the point of work.",
+      "lead": "Contractors' supervisors; EcoOils HSSE to verify",
+      "dateIssued": "2026-11-02",
+      "targetDate": "2026-11-09",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    }
+  ],
+  "lessonsLearned": [
+    "Installed instruments are not steps, handholds or supports. Use scaffold or a ladder, even when it is slower.",
+    "Look at what is around you before you start: the last-minute risk assessment must include fragile installed equipment.",
+    "Protect or mark fragile equipment so that it is easy to see.",
+    "Every installed asset matters to the project, even one that another contractor installed."
+  ],
+  "earlyLearnings": {
+    "whatHappened": "Three permanently installed temperature gauges at the FFA Plant were found damaged by a supervisor on a survey. It is suspected that someone from another crew used them as a foothold while working nearby. The damaged equipment was removed and secured.",
+    "earlyFindings": "The damage is suspected to come from workers using the gauges to step on as a shortcut.\nThe crews focused on the task and did not look at the fragile equipment around them.\nNo last-minute risk assessment covered fragile installed equipment.\nThe site is busy, with limited space and frequent scaffold erection and dismantling.\nProperty damage awareness had not been communicated at toolbox meetings.\nStill to be established: who worked there, whether safe access was available, and the tags of all three gauges.",
+    "keyLearnings": "Never step on, hold, or hang tools from installed instruments.\nIf access is not safe, ask for scaffold or a ladder and wait.\nLook around before you start: ask what is fragile here.\nIf you damage something, report it at once.",
+    "immediateActions": "Instrument team and the EcoOils representative informed.\nIncident reported to the team.\nDamaged equipment removed and secured at the site office.\nSame equipment inspected across the area for other damage.",
+    "lsrRule": "Not applicable.",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": "To be confirmed"
+  },
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "Preliminary: the gauges are suspected to have been used as a foothold because crews took a shortcut without checking the surroundings, there was no last-minute risk assessment for fragile installed equipment, and property damage awareness had not been communicated. The responsible party is not identified.",
+  "corrective": "WEN actions: management meeting, inspection of other instruments with longer protective covers, awareness campaign. Proposed by EcoOils HSSE: identify who worked in the area, add fragile equipment to the LMRA, provide safe access.",
   "attachments": []
 };
 
@@ -7474,6 +7773,8 @@ async function loadIncidents(){
   const changed78 = backfillEosm078();
   const changed79 = backfillEosm079();
   const changed80 = backfillEosm080();
+  const changed81 = backfillEosm081();
+  const changed82 = backfillEosm082();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -7492,7 +7793,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -9070,7 +9371,7 @@ const DRIVE_FOLDER_IDS = {
   '077':'1zK4qLYcxPegs5cedX9yQreZAAKe5gr-Z',
   '078':'1vK3YwuPLpEHULEIc1YDOzm10j97BH97Y',
   '079':'1itbXZXGCRsQuQw0W5LXQ208ehHTxmgdw',
-  '080':'1aLevtVbiXwoBSsz0738qIA4rPa1I1jJF'
+  '082':'1aLevtVbiXwoBSsz0738qIA4rPa1I1jJF'
 };
 function driveUrlForRec(rec){
   const mm = /^EOSM-(\d+)/i.exec((rec && rec.eosm) || '');
@@ -10243,7 +10544,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.3.1';
+const APP_VERSION = '1.3.2';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
