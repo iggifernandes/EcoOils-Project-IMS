@@ -1,11 +1,13 @@
-// VERSION: 2.1.0
+// CODE.GS VERSION 2.2.0 - 2026-11-02 (paste this whole file, then Deploy > Manage deployments > pencil > New version)
 /**
- * EcoOils Mentari — one Google Apps Script backend  (v2.1.0)
+ * EcoOils Mentari — one Google Apps Script backend  (v2.2.0)
  *
  * Serves BOTH apps from one Google Sheet:
  *   - Incident Management app (IMS):  list?project=, save {project, incidents}, kvGet, kvSet, exportXlsx
  *   - Stand Down MOM app:             list (no project), get?id=, save {id, data, photos}
  * Photos for the MOMs are stored in a Drive folder in the same Google account.
+ *
+ * v2.2.0: adds  ?action=counts  (open, no login): monthly COUNTS of incidents by classification only, for the HSSE Performance Tracker. No titles, names, locations or details leave the script.
  *
  * LOGIN (v2.1.0): every IMS action (incidents list/save, kvGet/kvSet, Excel export) now needs a login token.
  * Only ADMIN_EMAIL can get one. There is NO password written in this script or in the Sheet:
@@ -23,7 +25,7 @@
  * AFTER EDITING THIS FILE LATER: Deploy -> Manage deployments -> pencil -> Version: New version -> Deploy.
  * (The URL stays the same.)
  */
-const VERSION     = '2.1.0';
+const VERSION     = '2.2.0';
 const SS_ID       = '';                      // leave empty = the sheet this script is attached to
 const MOM_FOLDER  = 'StandDownMOM_Photos';
 const CHUNK       = 40000;                   // Sheets cell limit is 50,000 characters
@@ -52,6 +54,7 @@ function doGet(e) {
       if (p.project) { requireToken_(p.token); return out_({ ok: true, incidents: listInc_(p.project) }); }   // IMS (login needed)
       return out_({ ok: true, items: momList_() });                               // MOM
     }
+    if (a === 'counts')     return out_(counts_());   // counts only, no login: used by the HSSE Performance Tracker
     if (a === 'get')        return out_(Object.assign({ ok: true }, momGet_(p.id)));
     if (a === 'kvGet')      { requireToken_(p.token); return out_({ ok: true, value: kvGet_(p.key) }); }
     if (a === 'exportXlsx') { requireToken_(p.token); return out_(exportXlsx_()); }
@@ -214,6 +217,19 @@ function kvSet_(key, value) {
   const keep = last > 1 ? sh.getRange(2, 1, last - 1, w).getValues().filter(r => String(r[0]) !== String(key)) : [];
   const row = [String(key), new Date().toISOString()].concat(split_(String(value == null ? '' : value)));
   writeRows_(sh, w, keep, [row]);
+}
+
+/* ---------------- counts only (for the HSSE Performance Tracker) ---------------- */
+function counts_() {
+  const months = {};
+  allInc_().forEach(x => {
+    const r = x.rec || {}, m = String(r.date || '').slice(0, 7);
+    if (!/^\d{4}-\d{2}$/.test(m)) return;
+    const c = String(r.classification || r.type || 'Other').trim() || 'Other';
+    months[m] = months[m] || {};
+    months[m][c] = (months[m][c] || 0) + 1;
+  });
+  return { ok: true, months: months };
 }
 
 /* ---------------- IMS: Excel export ---------------- */
