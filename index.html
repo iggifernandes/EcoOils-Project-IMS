@@ -448,7 +448,7 @@ header.eh .eh-l button.on,header.eh .eh-l button.active,header.eh .eh-l button[a
     </div>
   </div>
 
-  <div class="modal-overlay" id="attachment-modal">
+  <div class="modal-overlay" id="attachment-modal" style="z-index:200;">
     <div class="modal-box">
       <h3>Add document</h3>
       <p>Attach a file to <strong id="attachment-eosm-slot"></strong> — the incident report, an investigation writeup, photos, or anything else.</p>
@@ -456,7 +456,7 @@ header.eh .eh-l button.on,header.eh .eh-l button.active,header.eh .eh-l button[a
       <label style="margin-top:0;">Label</label>
       <input type="text" id="attachment-label" placeholder="e.g. Incident report">
       <label>File</label>
-      <input type="file" id="attachment-file">
+      <input type="file" id="attachment-file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
       <div id="attachment-error" class="reset-error"></div>
       <div class="modal-actions">
         <button class="btn btn-ghost" id="btn-attachment-cancel" data-i18n="b.cancel">Cancel</button>
@@ -8609,6 +8609,7 @@ function renderRegister(){
           <span class="sev-pill risk-${i.riskLevel||'Low'}">${escapeHtml(recPotentialCompact(i))} · ${i.riskLevel||'—'}</span>
           <span class="status-pill">${i.status}</span>
           <a href="${driveUrlForRec(i).url}" target="_blank" rel="noopener" title="Open Drive folder — upload pictures and documents" style="color:var(--amber); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">&#128193; Drive</a>
+          <a href="#" onclick="openAttachmentModal('${i.id}'); return false;" title="Upload a photo or document to this incident" style="color:var(--amber); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">&#128247; Upload photo</a>
           <a href="#" onclick="openPinDownloadModal('${i.id}'); return false;" style="color:var(--amber); text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">PIN</a>
           <a href="#" onclick="openDeleteIncidentModal('${i.id}'); return false;" style="color:#231f20; text-decoration:underline; font-size:11px; align-self:center; padding:0 4px;">Delete</a>
         </div>
@@ -9195,6 +9196,7 @@ document.getElementById('btn-attachment-confirm').addEventListener('click', asyn
     await saveIncidents();
     document.getElementById('attachment-modal').classList.remove('show');
     renderRegister();
+    try{ const db = document.getElementById('detail-summary'); if(db && typeof detailTargetId!=='undefined' && detailTargetId===rec.id && typeof openIncidentDetail==='function') openIncidentDetail(rec.id); }catch(e){}
     toast(`${label} added to ${rec.eosm}`);
   }catch(e){
     document.getElementById('attachment-error').textContent = 'Could not read that file — try again.';
@@ -9539,7 +9541,7 @@ function buildIncidentDetailHtml(rec){
     <div class="inv-block"><div class="k">Immediate actions taken</div><div class="v">${escapeHtml(rec.immediateActions||'—')}</div></div>
     <div class="inv-block"><div class="k">Root cause</div><div class="v">${escapeHtml(rec.rootCause||'—')}</div></div>
     <div class="inv-block"><div class="k">Corrective action</div><div class="v">${escapeHtml(rec.corrective||'—')}</div></div>
-    <div class="inv-block"><div class="k">Documents</div>${attachmentsHtml}</div>
+    <div class="inv-block"><div class="k">Documents</div>${attachmentsHtml}<div style="margin-top:6px;"><a href="#" onclick="openAttachmentModal('${rec.id}'); return false;" style="color:var(--amber); font-size:12px;">&#128247; + Upload photo / document</a></div></div>
     ${invSection('Additional incident info', [optRow('Area', rec.area), optRow('Sphera Id#', rec.spheraId)])}
     ${invSection('Incident consequences', [optBlock('Incident consequences', rec.incidentConsequences), rec.noInjury ? optRow('No injury','Yes') : ''])}
     ${invSection('Investigation details', [optBlock('Investigation details', rec.investigationDetails), optRow('Investigation team member(s)', rec.investigationTeam), optRow('Date of investigation', rec.investigationDate)])}
@@ -10816,7 +10818,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.3.9';
+const APP_VERSION = '1.4.0';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
