@@ -5926,6 +5926,14 @@ function backfillEosm086(){
   if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-086-GSB-NM'); if(rec2) rec2.earlyLearnings = kept; }
   return r;
 }
+function backfillEosm084(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-084-PBS-LSR') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-084', EOSM084_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-084-PBS-LSR'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
 function backfillEosm079(){
   // keep early learnings the user has edited and saved; seed them only once
   const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-079-WEN-SEC') : null;
@@ -6520,6 +6528,85 @@ const EOSM086_DATA = {
   "status": "Investigating",
   "rootCause": "To be determined; the report has no investigation yet.",
   "corrective": "Immediate: stand-down for all crew; 3 Silo permits suspended until the area is thoroughly inspected. Corrective actions to follow with the investigation.",
+  "attachments": []
+};
+
+
+const EOSM084_DATA = {
+  "eosm": "EOSM-084-PBS-LSR",
+  "title": "Truck Pushed by Excavator Without Permit to Work",
+  "classification": "LSR Violation",
+  "date": "2026-11-09",
+  "time": "08:30",
+  "location": "East Side Road, Block A, Sei Mangkei, North Sumatra",
+  "contractor": "PBS",
+  "type": "LSR Violation",
+  "subtype": "Work authorisation",
+  "activity": "Unloading base course",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "A delivery truck got stuck on a slippery road at the unloading point. EcoOils had instructed that towing or pushing the truck needs a permit. The PBS supervisor told the excavator operator to push the truck without a permit. The truck was freed and left the site, and EcoOils found out afterwards. No injury or damage is reported.",
+  "immediateActions": "Driver barred from entering the Mentari project area.\nSupervisor, excavator operator, HSSE and PM called to the EcoOils office for statements.\nPBS states permits will be kept ready and the access road repaired (not yet verified).",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 0,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 2,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "East Side Road, Block A, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - none reported: no injury, no damage stated. Potential - P2B (proposed, to be confirmed): a truck pushed by an excavator can strike the cab, roll or move suddenly and seriously injure the driver or anyone nearby.",
+  "noInjury": true,
+  "investigationDetails": "PBS interim report (preliminary investigation) in English and Indonesian. No 5-Why or SMART corrective actions yet. Full investigation to follow.",
+  "investigationTeam": "To be assigned (PBS with EcoOils HSSE).",
+  "investigationDate": "2026-11-09",
+  "problemStatement": "A truck was pushed by an excavator without the permit EcoOils required for towing or pushing a stuck vehicle.",
+  "expectation": "No towing or pushing of a vehicle without a valid permit, and work stops until the permit is issued.",
+  "actualCondition": "The supervisor directed the excavator operator to push the truck without a permit. EcoOils found out after the truck had left.",
+  "impactPotential": "Serious injury to the driver or people nearby, and damage to the truck or excavator.",
+  "incidentSequence": "The truck got stuck on the slippery road at the unloading point. EcoOils instructed that towing or pushing requires a permit. The driver became anxious about staying stuck. The supervisor instructed the excavator operator to push the truck without a permit. The truck was freed and left. EcoOils later found the truck had been moved and had left the site.",
+  "relatedFacts": "PBS report blames the driver, but its own chronology shows the supervisor directed the push. The report says activities can resume normally, with no inspection or permit check shown. Not stated: who was near the truck or excavator, whether the driver stayed in the cab, how the truck was pushed, any damage, whether a flagman was present, and how and when EcoOils found out. The report appendix is empty.",
+  "supportingDocsStatus": "PBS interim report (English and Indonesian). Appendix empty. No statements, permit, JHA or photos attached.",
+  "fiveWhys": [],
+  "tripodFactors": [],
+  "tripodNotes": "",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "The supervisor directed the excavator operator to push the truck without a permit.",
+  "recommendation": "To be set once PBS sends the investigation with 5-Why and SMART corrective actions.",
+  "correctiveActionsTable": [],
+  "lessonsLearned": [],
+  "earlyLearnings": {
+    "whatHappened": "A truck stuck on a slippery road was pushed by an excavator on the supervisor's instruction, without the required permit.",
+    "earlyFindings": "EcoOils had said a permit is needed to tow or push a stuck vehicle.\nThe supervisor directed the push, not the driver.\nNo formal procedure for freeing stuck vehicles is reported.\nThe truck left before EcoOils was told.",
+    "keyLearnings": "A stuck vehicle is a stop-work point: no towing or pushing without a valid permit.\nSupervisors must never direct work without a permit, even when a driver is anxious or pressing.\nNo excavator is used to push a vehicle unless the permit and plan allow it.",
+    "immediateActions": "Driver barred from the project area.\nSupervisor, operator, HSSE and PM called to the EcoOils office for statements.",
+    "lsrRule": "Work Authorisation: work with a valid permit when required.",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": ""
+  },
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "To be determined; the PBS report is an interim summary.",
+  "corrective": "Immediate: driver barred from site; statements taken from supervisor, operator, HSSE and PM. Corrective actions to follow with the investigation.",
   "attachments": []
 };
 
@@ -8042,6 +8129,7 @@ async function loadIncidents(){
   const changed82 = backfillEosm082();
   const changed83 = backfillEosm083();
   const changed86 = backfillEosm086();
+  const changed84 = backfillEosm084();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -8060,7 +8148,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed83 || changed86 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed83 || changed86 || changed84 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -9645,6 +9733,7 @@ const DRIVE_FOLDER_IDS = {
   '081':'10DKjmvKAjL0kk76d09jPBoTgm-KW0_No',
   '082':'1aLevtVbiXwoBSsz0738qIA4rPa1I1jJF',
   '083':'1qr77kh9wLgR6aRmc7nsqorVQ9WD_ioVQ',
+  '084':'12gB0ZWfDHWfCvxigaqmg2c1bBCUlJJ2Q',
   '086':'1YSyGd9-O_Y5384KhkqRwOR2oOiFmlomT'
 };
 function driveUrlForRec(rec){
@@ -10818,7 +10907,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.4.0';
+const APP_VERSION = '1.4.1';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
