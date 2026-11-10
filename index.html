@@ -1947,7 +1947,10 @@ function backfillByEosm(prefix, data){
     return true;
   }
   const rec = incidents[idx];
+  // Keep photos/documents the user uploaded: seeded data with no attachments must not wipe them.
+  const keepAttach = (!data.attachments || !data.attachments.length) ? (rec.attachments || []) : null;
   Object.assign(rec, data, arrays);
+  if(keepAttach) rec.attachments = keepAttach;
   return true;
 }
 function backfillEosm001(){ return backfillByEosm('EOSM-001', EOSM001_DATA); }
@@ -10813,7 +10816,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.3.8';
+const APP_VERSION = '1.3.9';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
