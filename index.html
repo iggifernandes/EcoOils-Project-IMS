@@ -522,7 +522,7 @@ header.eh .eh-l button.on,header.eh .eh-l button.active,header.eh .eh-l button[a
           <h3 style="margin:0;">Incident type breakdown</h3>
           <button class="btn btn-ghost" id="btn-export-lessons" style="flex-shrink:0;">Download Lessons Learned (Excel)</button>
         </div>
-        <div class="grid grid-5" id="type-breakdown-cards"></div>
+        <div class="grid grid-6" id="type-breakdown-cards"></div>
         <div class="card" style="margin-top:12px; padding:0; overflow-x:auto;">
           <table style="width:100%; border-collapse:collapse; font-size:13px;">
             <tbody id="type-breakdown-table"></tbody>
@@ -8258,7 +8258,8 @@ function renderTypeBreakdown(){
     { label:'First Aid Case', value: fac, color:'#ffc600', key:'fac' },
     { label:'Near Miss', value: nearMiss, color:'#44a276', key:'nearMiss' },
     { label:'Property Damage', value: propertyDamage, color:'#6e6b6c', key:'propertyDamage' },
-    { label:'Security', value: security, color:'#aaaaaa', key:'security' }
+    { label:'Security', value: security, color:'#aaaaaa', key:'security' },
+    { label:'Environmental', value: environmental, color:'#2f7d57', key:'environmental' }
   ];
   cardsEl.innerHTML = cards.map((c,idx) => `
     <div class="card stat type-breakdown-hoverable" data-bp-key="${c.key}" data-bp-idx="${idx}">
@@ -10808,7 +10809,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.3.6';
+const APP_VERSION = '1.3.7';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
