@@ -5907,6 +5907,14 @@ function backfillEosm082(){
   if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-082-KKS-NM'); if(rec2) rec2.earlyLearnings = kept; }
   return r;
 }
+function backfillEosm083(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-083-KKS-ENV') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-083', EOSM083_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-083-KKS-ENV'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
 function backfillEosm079(){
   // keep early learnings the user has edited and saved; seed them only once
   const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-079-WEN-SEC') : null;
@@ -6255,6 +6263,173 @@ const EOSM082_DATA = {
   "status": "Investigating",
   "rootCause": "Preliminary, from the contractor: direct cause is failed verbal coordination during hand transfer of a 6 m pipe at height, with no tethering or drop-control line. Underlying: the transfer method at height had not integrated drop-prevention standards for long items during dismantling, and there are no standard verbal or visual signals for handovers. Not final.",
   "corrective": "Immediate: exclusion zone barricaded and guarded by the Scaffolding Foreman. Corrective actions to be defined once the investigation is complete.",
+  "attachments": []
+};
+
+
+const EOSM083_DATA = {
+  "eosm": "EOSM-083-KKS-ENV",
+  "title": "Used Engine Oil Spill at Laydown B from an Abandoned Container",
+  "classification": "Environmental",
+  "date": "2026-11-07",
+  "time": "10:00",
+  "location": "Laydown B, DTP Area, Sei Mangkei, North Sumatra",
+  "contractor": "KKS",
+  "type": "Environmental",
+  "subtype": "Spill / leak",
+  "activity": "Demobilization of rental 25-ton mobile crane; storage of used engine oil from its maintenance",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "On 7 November 2026 at about 10:00, site personnel found a plastic bucket of used engine oil overflowing at Laydown B, with the surrounding soil contaminated. The bucket held about 25 L of used oil from an oil change on a rented 25-ton mobile crane, stored under a plastic and trash-bag cover with the plan that it would leave with the crane. The crane was demobilized on 28 September 2026 and the bucket was overlooked and left outdoors. Over about 40 days the cover deteriorated; after heavy rain the bucket filled with water and the oil overflowed onto unpaved ground. Photos show the spill a few metres from an open, water-filled drainage ditch. No injury and no property damage. The oil was secured, the soil excavated and disposed of as B3 waste, and Laydown B was inspected for other abandoned containers.",
+  "immediateActions": "1. Bucket secured and transferred to the Temporary Hazardous Waste Storage (TPS B3) at the Warehouse.\n2. Spilled oil, contaminated soil and vegetation excavated, collected, bagged and disposed of as B3 hazardous waste.\n3. Joint inspection of Laydown B: no other abandoned containers or hazardous materials found.",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 0,
+    "Environment": 2,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Environment": {
+      "severity": 3,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 0,
+      "likelihood": "B"
+    }
+  },
+  "area": "Laydown B, DTP Area, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - E2 (proposed by the HSSE register; KKS rated E1): localized soil contamination from the oil of a 25 L bucket, requiring excavation and disposal as B3 hazardous waste; no injury or property damage. Potential - E3 (as in the KKS report; likelihood provisional): wider ground contamination or runoff into the open drainage ditch a few metres away during heavy rain, and non-compliance with hazardous waste rules. The KKS report's RAM line reads P1/A0/C0/E0, which does not match its own text and is to be corrected.",
+  "noInjury": true,
+  "investigationDetails": "PRELIMINARY NOTIFICATION from the KKS report, held for revision: the report copied text from a confined space incident (Why 2, the asphyxiation line, the Life Saving Rules box and a Safety Officer contributing factor), carries a wrong attachment, and has sign-off dates of 8 October 2026, before the event. Those parts were not used.",
+  "investigationTeam": "Ignatius Ambrosio (EcoOils HSSE Manager) and Pesta M. (KKS HSE Supervisor) per the report.",
+  "investigationDate": "2026-11-07",
+  "problemStatement": "Hazardous waste from equipment maintenance is expected to be stored in labelled, approved containers with secondary containment and removed from site when the work or the rental ends. Instead, a bucket of about 25 L of used oil was left behind at demobilization, uncontained and outdoors, and overflowed after rain onto unpaved ground near an open drainage ditch.",
+  "expectation": "Used oil is held in B3 drums or approved containers with a drip tray and a label, is handed over with a record, and is cleared at demobilization by an HSE site clearance check.",
+  "actualCondition": "Used oil stood in an improvised bucket with a degraded plastic and trash-bag cover at Laydown B for about 40 days. No clearance check was made at the crane's demobilization and no one inspected the laydown area for waste.",
+  "impactPotential": "Soil contamination needing B3 excavation and disposal; possible runoff to the open drainage ditch; non-compliance with hazardous waste procedures.",
+  "incidentSequence": "Before 20 September 2026: oil change (about 25 L) on a rented 25-ton mobile crane. The used oil was held in a plastic bucket sealed with plastic and covered with a trash bag, to leave with the crane.\n28 September 2026: the crane was demobilized from site; the bucket was overlooked in housekeeping and final demobilization checks and stayed at Laydown B.\n28 September to 6 November 2026: the bucket stood outdoors; the cover degraded.\nBefore discovery (date not stated): heavy rain filled the bucket and the oil overflowed onto unpaved ground.\n7 November 2026, about 10:00: site personnel found the overflowing bucket and the contaminated soil; clean-up and reporting started.",
+  "relatedFacts": "Source: KKS report (EOSM-083-KKS-ENV, as numbered by the HSSE Manager), held for revision. (1) Time: the report header shows 14:33 but the timeline gives discovery at 10:00; 10:00 is used; to be confirmed. (2) Classification: the report says 'Environment Near Miss'; this is an actual spill with soil contamination and is registered as Environmental. (3) Volume: the oil in the bucket was about 25 L but the amount that escaped is not stated (the report says '< 25L'). (4) Not stated: soil quantity removed, the B3 manifest and licensed transporter, the rental vendor, the date of the heavy rain, who found it, and whether the spill must be reported outside the site (EcoOils, Shell or a regulator); the reporting decision is the HSSE Manager's. (5) Photos in the report show the spill, the nearby open ditch and the clean-up; the ditch has not been checked for oil. (6) The text copied from a confined space incident and the wrong attachment (a handwritten statement dated 10-10-2026) were ignored. (7) The report's 5th Why already reaches management; the chain was tightened in this register. (8) Incident number EOSM-083-KKS-ENV follows EOSM-082 in date order.",
+  "supportingDocsStatus": "Report with photographs of the spill, the nearby ditch and the clean-up. The wrong attachment is excluded. No B3 manifest, no statements and no rental contract are attached.",
+  "fiveWhys": [
+    "Why did the oil contaminate the soil? - Rain filled the uncovered bucket of used oil at Laydown B, displaced the oil and made it overflow onto unpaved ground.",
+    "Why was the bucket uncovered? - Its plastic and trash-bag cover deteriorated outdoors over about 40 days.",
+    "Why did it stay there 40 days? - It was overlooked at the crane's demobilization on 28 September, and nobody inspected Laydown B for waste afterwards.",
+    "Why was used oil held that way? - It was kept in an improvised, unlabelled bucket with no secondary containment, to leave with the crane, with no B3 drum, handover record or check that it had left.",
+    "Why was nobody checking? - KKS management had no environmental clearance step for demobilizing rental equipment, did not make waste removal a condition of the rental, and did not inspect long-term laydown areas, so unattended hazardous waste could stand there for 40 days."
+  ],
+  "tripodFactors": [
+    "PR",
+    "OR",
+    "DF"
+  ],
+  "tripodNotes": "Provisional, from the KKS report and the photos.\n**Procedures (PR):** no demobilization environmental clearance checklist for rental equipment; no standard for storing used oil at maintenance points.\n**Organization (OR):** waste responsibility between the rental vendor and KKS was not defined; no routine environmental inspection of long-term laydown areas.\n**Defences (DF):** no secondary containment, label or B3 drum; the bucket cover was the only barrier.",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "Unsafe act: used oil left behind at demobilization and stored in an improvised bucket. Unsafe condition: open, uncontained hazardous liquid outdoors, with no label, near an open drainage ditch.",
+  "recommendation": "Close out the spill with a B3 manifest and a check of the nearby ditch; create a Demobilization and Environmental Site Clearance Checklist that must be signed before any rental equipment leaves; set a B3 storage standard with drums, drip trays and labels at maintenance points; put waste removal into rental conditions; inspect laydown areas weekly and make management review the log; walk down all contractor laydown areas; and share the lesson with all contractors.",
+  "correctiveActionsTable": [
+    {
+      "description": "Develop and enforce a mandatory equipment sign-off checklist requiring an HSE site clearance inspection. (KKS report)",
+      "lead": "KKS HSE, MatCon & Warehouse Team",
+      "dateIssued": "2026-11-07",
+      "targetDate": "2026-11-15",
+      "status": "",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Laydown area environmental audit. (KKS report)",
+      "lead": "KKS HSE, MatCon & Warehouse Team",
+      "dateIssued": "2026-11-07",
+      "targetDate": "2026-11-20",
+      "status": "",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: walk down every KKS laydown and yard area for abandoned containers and waste, with a signed checklist and photos.",
+      "lead": "KKS HSE Supervisor with EcoOils HSSE",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-12",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: close out the cleanup: weigh the excavated soil, hand it to a licensed B3 transporter, keep the manifest, and check the nearby drainage ditch for oil.",
+      "lead": "KKS HSE",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-13",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: B3 waste storage standard at every maintenance point (drums, drip trays, labels); no release through the gate pass (EOSM-HSSE-FM003) of rental equipment without HSE sign-off.",
+      "lead": "KKS Site HSE Manager; EcoOils HSSE approves",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-15",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: rental and maintenance vendors remove their own waste and return a manifest, as a condition of the contract.",
+      "lead": "KKS Site Project Manager",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-20",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: weekly logged inspection of laydown areas from 16 November; the KKS Site Project Manager reviews the log weekly and reports monthly to EcoOils HSSE; target zero open waste findings.",
+      "lead": "KKS HSE Supervisor; KKS Site Project Manager",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-16",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    },
+    {
+      "description": "Proposed: share the lesson with all contractors and ask each to walk down their own laydown areas.",
+      "lead": "EcoOils HSSE",
+      "dateIssued": "2026-11-10",
+      "targetDate": "2026-11-20",
+      "status": "Proposed",
+      "closeoutEvidence": [],
+      "closeoutJustification": ""
+    }
+  ],
+  "lessonsLearned": [
+    "Used oil never stays in an open bucket. Use a labelled B3 drum with a drip tray, and record who takes it away.",
+    "Rental equipment is cleared by HSE before it leaves: waste left behind becomes the project's problem.",
+    "A laydown area nobody inspects will hold hazardous waste for weeks, so inspect it every week and log it.",
+    "A spill near an open ditch is a runoff risk even in dry weather; check drainage when a spill is found."
+  ],
+  "earlyLearnings": {
+    "whatHappened": "A bucket of about 25 L of used crane oil was left at Laydown B when a rented crane was demobilized. Over about 40 days its cover degraded, and heavy rain made the oil overflow onto the ground, a few metres from an open ditch. The soil was excavated and disposed of as B3 waste. No one was hurt.",
+    "earlyFindings": "The oil was held in an improvised bucket, unlabelled, with no secondary containment.\nThe bucket was overlooked when the crane was demobilized, and no clearance check was made.\nNobody inspected Laydown B for waste during the 40 days.\nThe spill is close to an open drainage ditch, which has not yet been checked.\nSpill volume, soil quantity and the B3 manifest are still to be recorded.\nThe KKS report is under revision because it contains text from another incident.",
+    "keyLearnings": "Put used oil in a B3 drum with a drip tray and a label. Never an open bucket.\nWhen rented equipment leaves, check the area for waste before it goes.\nWalk laydown areas every week.\nIf you find a spill, stop it, report it, and look at where it could run.",
+    "immediateActions": "Bucket secured and moved to TPS B3.\nContaminated soil excavated and disposed of as B3 waste.\nLaydown B inspected for other abandoned containers; none found.",
+    "lsrRule": "Not applicable.",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": "To be confirmed"
+  },
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "Preliminary: KKS management had no environmental clearance step for demobilizing rental equipment, did not make waste removal a condition of the rental, and did not inspect long-term laydown areas, so a bucket of used oil stood outdoors for about 40 days until rain made it overflow.",
+  "corrective": "KKS actions: equipment sign-off checklist with HSE site clearance (15 Nov), laydown area environmental audit (20 Nov). Proposed by EcoOils HSSE: laydown walkdown, B3 close-out with manifest and ditch check, B3 storage standard, rental contract clause, weekly inspections with management review, and a lesson shared with all contractors.",
   "attachments": []
 };
 
@@ -7775,6 +7950,7 @@ async function loadIncidents(){
   const changed80 = backfillEosm080();
   const changed81 = backfillEosm081();
   const changed82 = backfillEosm082();
+  const changed83 = backfillEosm083();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -7793,7 +7969,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed83 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -10544,7 +10720,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.3.2';
+const APP_VERSION = '1.3.3';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
