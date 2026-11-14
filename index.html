@@ -553,7 +553,7 @@ header.eh .eh-l button.on,header.eh .eh-l button.active,header.eh .eh-l button[a
         <div class="form-row">
           <div><label>Incident number</label><input type="text" id="f-eosm" placeholder="EOSM-67"></div>
           <div><label>Contractor</label>
-            <select id="f-contractor"><option value="">-Select-</option><option>GSB</option><option>WEN</option><option>KKS</option><option>PBS</option><option>EcoOils</option><option>Other</option></select>
+            <select id="f-contractor"><option value="">-Select-</option><option>GSB</option><option>WEN</option><option>KKS</option><option>PBS</option><option>SOS</option><option>EcoOils</option><option>Other</option></select>
           </div>
         </div>
         <div id="contractor-other-block" style="display:none;">
@@ -1057,7 +1057,7 @@ document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',
 }));
 applyLang();
 
-const CONTRACTORS = ['GSB','WEN','KKS','PBS','EcoOils','Other'];
+const CONTRACTORS = ['GSB','WEN','KKS','PBS','SOS','EcoOils','Other'];
 
 const TYPE_SUBTYPES = {
   'TBD': ['TBD'],
@@ -6623,17 +6623,17 @@ const EOSM087_DATA = {
   "eosm": "EOSM-087-SOS-SEC",
   "title": "GSB Demobilization Truck Exited West Gate Without Approved Gate Pass",
   "classification": "Security Event",
-  "date": "",
-  "time": "",
+  "date": "2026-11-14",
+  "time": "13:00",
   "location": "West Gate, Sei Mangkei, North Sumatra",
-  "contractor": "Other",
+  "contractor": "SOS",
   "type": "Security Event",
   "subtype": "Gate pass / access control failure",
   "activity": "Demobilization of GSB material by truck",
   "casualty": "Not Applicable (N/A) - NIL",
   "shellControl": "Yes",
-  "description": "A GSB truck carrying demobilized material was allowed by SOS security to exit the West Gate and park outside without an approved gate pass. The gap was found only when the GSB contractor came to get the pass approved and EcoOils HSSE went to locate the vehicle, which was already outside the gate. Contractors involved: SOS (security) and GSB (material owner). No injury or loss is reported.",
-  "immediateActions": "HSSE located the truck parked outside the gate.\nSecurity and HSSE inspected the inventory of the material immediately.\nSOS Security Chief informed and advised to raise the incident report and investigate the event.",
+  "description": "A GSB truck carrying demobilized material was allowed by SOS security to exit the West Gate and park outside without an approved gate pass. The gap was found only when the GSB contractor came to get the pass approved and EcoOils HSSE went to locate the vehicle, which was already outside the gate. Contractors involved: SOS (security) and GSB (material owner). No injury or loss is reported; the material inventory was checked and found correct.",
+  "immediateActions": "HSSE located the truck parked outside the gate.\nSecurity and HSSE inspected the inventory of the material immediately; all items checked correct.\nSOS Security Chief informed and advised to raise the incident report and investigate the event.",
   "actualRatings": {
     "People": 0,
     "Assets": 0,
@@ -6660,17 +6660,17 @@ const EOSM087_DATA = {
   },
   "area": "West Gate, Sei Mangkei, North Sumatra",
   "spheraId": "",
-  "incidentConsequences": "Actual - none reported: no injury, no confirmed loss. Potential - A2B (proposed, to be confirmed): material can leave site with no approved gate pass and no EcoOils check, so any loss or theft would go undetected.",
+  "incidentConsequences": "Actual - none reported: no injury, no confirmed loss. Potential - A2B: material can leave site with no approved gate pass and no EcoOils check, so any loss or theft would go undetected.",
   "noInjury": true,
   "investigationDetails": "Preliminary notification. SOS Security Chief to raise the incident report and investigate. Statements from SOS security and GSB, the gate log and the truck details are to be obtained.",
   "investigationTeam": "To be assigned (EcoOils HSSE with SOS and GSB).",
-  "investigationDate": "",
+  "investigationDate": "2026-11-14",
   "problemStatement": "A truck carrying GSB demobilized material left site through the gate without an approved gate pass.",
   "expectation": "No vehicle or material leaves site without an approved gate pass, checked by security at the gate.",
   "actualCondition": "SOS security allowed the truck to exit and park outside the gate without an approved gate pass. EcoOils learned of it only when GSB came to have the pass approved.",
   "impactPotential": "Unauthorised removal of materials from site with no EcoOils check, and loss of control over what leaves the site.",
   "incidentSequence": "GSB demobilized material on a truck. The truck was allowed to exit the gate and park outside without an approved gate pass. The GSB contractor came to have the gate pass approved. HSSE went to find the vehicle and found it already outside the gate.",
-  "relatedFacts": "Both SOS guards on duty at the West Gate were new and recently deployed to site. How well they were familiarised by the SOS Lead and Shift Supervisor is an element for the investigation. Not yet established: what the material was and its value, the result of the inventory inspection, whether the load was checked at the gate, who allowed the exit and why, whether the gate log was completed, whether GSB told the driver to leave before approval, and the date and time of the exit.",
+  "relatedFacts": "Both SOS guards on duty at the West Gate were new and recently deployed to site. How well they were familiarised by the SOS Lead and Shift Supervisor is an element for the investigation. The material inventory was checked and found correct. Not yet established: what the material was and its value, whether the load was checked at the gate, who allowed the exit and why, whether the gate log was completed, whether GSB told the driver to leave before approval, and the exact time the truck passed the gate.",
   "supportingDocsStatus": "No report, statements, gate log or photos yet.",
   "fiveWhys": [],
   "tripodFactors": [],
@@ -6685,7 +6685,7 @@ const EOSM087_DATA = {
     "whatHappened": "A GSB truck carrying demobilized material exited the gate and parked outside without an approved gate pass. It was found only when GSB came to have the pass approved.",
     "earlyFindings": "Security let the truck through before the gate pass was approved.\nNobody caught the exit at the gate; HSSE found it by going to look for the vehicle.\nGSB's material was outside the gate with no EcoOils check.",
     "keyLearnings": "No approved gate pass means no exit, for every vehicle and every load.\nSecurity must stop and hold any vehicle without an approved pass, whatever the contractor says.\nContractors must not move material to the gate before the pass is approved.",
-    "immediateActions": "HSSE located the truck outside the gate.\nSecurity and HSSE inspected the material inventory.\nSOS Security Chief informed and advised to raise the incident report and investigate.",
+    "immediateActions": "HSSE located the truck outside the gate.\nSecurity and HSSE inspected the material inventory; all items checked correct.\nSOS Security Chief informed and advised to raise the incident report and investigate.",
     "lsrRule": "",
     "preparedBy": "HSSE Manager - Project",
     "standDownDate": ""
@@ -6693,7 +6693,7 @@ const EOSM087_DATA = {
   "fimList": [],
   "status": "Investigating",
   "rootCause": "To be determined.",
-  "corrective": "Immediate: truck located outside the gate by HSSE; material inventory inspected by security and HSSE; SOS Security Chief informed and asked to raise the incident report and investigate. Further actions to follow with the investigation.",
+  "corrective": "Immediate: truck located outside the gate by HSSE; material inventory inspected by security and HSSE, all correct; SOS Security Chief informed and asked to raise the incident report and investigate. Further actions to follow with the investigation.",
   "attachments": []
 };
 
@@ -10996,7 +10996,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.4.3';
+const APP_VERSION = '1.4.4';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
