@@ -1065,7 +1065,7 @@ const TYPE_SUBTYPES = {
   'Injury': ['First aid case','Medical treatment case','Restricted work case','Lost workday case','Permanent disability','Fatality'],
   'Property Damage': ['Equipment damage','Vehicle damage','Structural damage','Tool / asset damage'],
   'LSR Violation': ['Bypassing safety controls','Confined space','Driving','Energy isolation','Hot work','Line of fire','Safe mechanical lifting','Work authorisation','Working at height'],
-  'Security Event': ['Theft','Unauthorized access','Sabotage','Civil disturbance'],
+  'Security Event': ['Theft','Unauthorized access','Gate pass / access control failure','Sabotage','Civil disturbance'],
   'Environmental': ['Spill / leak','Emission exceedance','Waste mismanagement','Water contamination','Soil contamination'],
   'Fire': ['Flash fire','Structural fire','Equipment fire','Vegetation fire']
 };
@@ -5934,6 +5934,14 @@ function backfillEosm084(){
   if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-084-PBS-LSR'); if(rec2) rec2.earlyLearnings = kept; }
   return r;
 }
+function backfillEosm087(){
+  // keep early learnings the user has edited and saved; seed them only once
+  const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-087-SOS-SEC') : null;
+  const kept = rec && rec.earlyLearnings && rec.earlyLearnings.updated ? rec.earlyLearnings : null;
+  const r = backfillByEosm('EOSM-087', EOSM087_DATA);
+  if(kept){ const rec2 = incidents.find(x => x.eosm === 'EOSM-087-SOS-SEC'); if(rec2) rec2.earlyLearnings = kept; }
+  return r;
+}
 function backfillEosm079(){
   // keep early learnings the user has edited and saved; seed them only once
   const rec = (typeof incidents !== 'undefined') ? incidents.find(r => r.eosm === 'EOSM-079-WEN-SEC') : null;
@@ -6607,6 +6615,85 @@ const EOSM084_DATA = {
   "status": "Investigating",
   "rootCause": "To be determined; the PBS report is an interim summary.",
   "corrective": "Immediate: driver barred from site; statements taken from supervisor, operator, HSSE and PM. Corrective actions to follow with the investigation.",
+  "attachments": []
+};
+
+
+const EOSM087_DATA = {
+  "eosm": "EOSM-087-SOS-SEC",
+  "title": "GSB Demobilization Truck Exited Gate Without Approved Gate Pass",
+  "classification": "Security Event",
+  "date": "",
+  "time": "",
+  "location": "Site gate, Sei Mangkei, North Sumatra",
+  "contractor": "Other",
+  "type": "Security Event",
+  "subtype": "Gate pass / access control failure",
+  "activity": "Demobilization of GSB material by truck",
+  "casualty": "Not Applicable (N/A) - NIL",
+  "shellControl": "Yes",
+  "description": "A GSB truck carrying demobilized material was allowed by SOS security to exit the gate and park outside without an approved gate pass. The gap was found only when the GSB contractor came to get the pass approved and EcoOils HSSE went to locate the vehicle, which was already outside the gate. Contractors involved: SOS (security) and GSB (material owner). No injury or loss is reported.",
+  "immediateActions": "HSSE located the truck parked outside the gate.\nActions on the material and the truck are to be confirmed.",
+  "actualRatings": {
+    "People": 0,
+    "Assets": 0,
+    "Environment": 0,
+    "Reputation": 0
+  },
+  "potentialRatings": {
+    "People": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Assets": {
+      "severity": 2,
+      "likelihood": "B"
+    },
+    "Environment": {
+      "severity": 0,
+      "likelihood": "B"
+    },
+    "Reputation": {
+      "severity": 1,
+      "likelihood": "B"
+    }
+  },
+  "area": "Site gate, Sei Mangkei, North Sumatra",
+  "spheraId": "",
+  "incidentConsequences": "Actual - none reported: no injury, no confirmed loss. Potential - A2B (proposed, to be confirmed): material can leave site with no approved gate pass and no EcoOils check, so any loss or theft would go undetected.",
+  "noInjury": true,
+  "investigationDetails": "Preliminary notification. Statements from SOS security and GSB, the gate log and the truck details are to be obtained.",
+  "investigationTeam": "To be assigned (EcoOils HSSE with SOS and GSB).",
+  "investigationDate": "",
+  "problemStatement": "A truck carrying GSB demobilized material left site through the gate without an approved gate pass.",
+  "expectation": "No vehicle or material leaves site without an approved gate pass, checked by security at the gate.",
+  "actualCondition": "SOS security allowed the truck to exit and park outside the gate without an approved gate pass. EcoOils learned of it only when GSB came to have the pass approved.",
+  "impactPotential": "Unauthorised removal of materials from site with no EcoOils check, and loss of control over what leaves the site.",
+  "incidentSequence": "GSB demobilized material on a truck. The truck was allowed to exit the gate and park outside without an approved gate pass. The GSB contractor came to have the gate pass approved. HSSE went to find the vehicle and found it already outside the gate.",
+  "relatedFacts": "Not yet established: what the material was and its value, whether the load was checked at the gate, who at SOS allowed the exit and why, whether the gate log was completed, whether GSB told the driver to leave before approval, whether the load was returned or inspected, and the date and time of the exit.",
+  "supportingDocsStatus": "No report, statements, gate log or photos yet.",
+  "fiveWhys": [],
+  "tripodFactors": [],
+  "tripodNotes": "",
+  "processSafetyFundamentals": "",
+  "assetRulesViolation": "Not Applicable (N/A)",
+  "immediateCauseOther": "The truck was allowed through the gate before the gate pass was approved.",
+  "recommendation": "To be set once SOS and GSB submit statements and the investigation.",
+  "correctiveActionsTable": [],
+  "lessonsLearned": [],
+  "earlyLearnings": {
+    "whatHappened": "A GSB truck carrying demobilized material exited the gate and parked outside without an approved gate pass. It was found only when GSB came to have the pass approved.",
+    "earlyFindings": "Security let the truck through before the gate pass was approved.\nNobody caught the exit at the gate; HSSE found it by going to look for the vehicle.\nGSB's material was outside the gate with no EcoOils check.",
+    "keyLearnings": "No approved gate pass means no exit, for every vehicle and every load.\nSecurity must stop and hold any vehicle without an approved pass, whatever the contractor says.\nContractors must not move material to the gate before the pass is approved.",
+    "immediateActions": "HSSE located the truck outside the gate.",
+    "lsrRule": "",
+    "preparedBy": "HSSE Manager - Project",
+    "standDownDate": ""
+  },
+  "fimList": [],
+  "status": "Investigating",
+  "rootCause": "To be determined.",
+  "corrective": "Immediate: truck located outside the gate by HSSE. Further actions to follow with the investigation.",
   "attachments": []
 };
 
@@ -8130,6 +8217,7 @@ async function loadIncidents(){
   const changed83 = backfillEosm083();
   const changed86 = backfillEosm086();
   const changed84 = backfillEosm084();
+  const changed87 = backfillEosm087();
   const changed57 = backfillEosm057();
   const changed59 = backfillEosm059();
   const changed60 = backfillEosm060();
@@ -8148,7 +8236,7 @@ async function loadIncidents(){
   const changed55 = backfillEosm055();
   const changed58 = backfillEosm058();
   const changed71 = backfillEosm071();
-  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed83 || changed86 || changed84 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
+  if((changed1 || changed2 || changed3 || changed4 || changed5 || changed6 || changed7 || changed8 || changed9 || changed70 || changed10 || changed11 || changed12 || changed13 || changed14 || changed15 || changed16 || changed17 || changed18 || changed19 || changed20 || changed21 || changed22 || changed23 || changed24 || changed25 || changed26 || changed27 || changed29 || changed30 || changed31 || changed32 || changed33 || changed34 || changed35 || changed36 || changed37 || changed38 || changed72b || changed73b || changed39b || changed40 || changed41 || changed42 || changed74b || changed75b || changed43 || changed44 || changed45 || changed46 || changed47 || changed48 || changed49 || changed50 || changed51 || changed54 || changed56 || changed76 || changed77 || changed78 || changed79 || changed80 || changed81 || changed82 || changed83 || changed86 || changed84 || changed87 || changed57 || changed59 || changed60 || changed61 || changed62 || changed63 || changed64 || changed65 || changed66 || changed67 || changed68 || changed69 || changed71 || changed52 || changed28 || changed53 || changed55 || changed58 || wireRopeIdx > -1) && !loadFailed && JSON.stringify(incidents) !== loadedSig){
     await saveIncidents();
   }
   renderAll();
@@ -9734,7 +9822,8 @@ const DRIVE_FOLDER_IDS = {
   '082':'1aLevtVbiXwoBSsz0738qIA4rPa1I1jJF',
   '083':'1qr77kh9wLgR6aRmc7nsqorVQ9WD_ioVQ',
   '084':'12gB0ZWfDHWfCvxigaqmg2c1bBCUlJJ2Q',
-  '086':'1YSyGd9-O_Y5384KhkqRwOR2oOiFmlomT'
+  '086':'1YSyGd9-O_Y5384KhkqRwOR2oOiFmlomT',
+  '087':'15A7XIlyt0Pn1tHyLo9ynYkQZyv92lYWA'
 };
 function driveUrlForRec(rec){
   const mm = /^EOSM-(\d+)/i.exec((rec && rec.eosm) || '');
@@ -10907,7 +10996,7 @@ populateTripodChecklist();
 updateRiskReadout();
 toggleContractorOther();
 
-const APP_VERSION = '1.4.1';
+const APP_VERSION = '1.4.2';
 
 function renderAppVersion(){
   const versionEl = document.getElementById('app-version-label');
